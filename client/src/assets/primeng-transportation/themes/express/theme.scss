@@ -1,0 +1,106 @@
+@import "../../../transportation/theme";
+
+$fontFamily: $euFontFamily;
+$fontSize: $euFontSize;
+$borderRadius: $euBorderRadius;
+$disabledOpacity: $euDisabledOpacity;
+
+//Header
+$headerBorderWidth: 1px;
+$headerBorderColor: $lightestGray;
+$headerBorderStyle: solid;
+$headerBgColor: $euNeutral;
+$headerTextColor: $darkGray;
+$headerFontWeight: normal;
+$headerFontSize: 18px;
+$headerPadding: 24px;
+$headerIconTextColor: $lightGray;
+
+//Content
+$contentBorderWidth: 1px;
+$contentBorderColor: $lightestGray;
+$contentBorderStyle: solid;
+$contentBgColor: $euNeutral;
+$contentPadding: 24px;
+$contentTextColor: $darkGray;
+$contentIconTextColor: $lightGray;
+
+//Default State
+$stateDefaultBorderWidth: 1px;
+$stateDefaultBorderColor: $lightestGray;
+$stateDefaultBgColor: $euNeutral;
+$stateDefaultTextColor: $darkGray;
+
+//Active State
+$stateActiveBorderColor: $lightestGray;
+$stateActiveBgColor: $euNeutral;
+$stateActiveTextColor: $darkGray;
+
+//Highlight State
+$stateHighlightBorderColor: $lightestGray;
+$stateHighlightBgColor: rgba(245, 167, 16, 0.1);
+$stateHighlightTextColor: $darkGray;
+
+//Focus State
+$stateFocusBorderColor: $euSecondary;
+$stateFocusBgColor: $euNeutral;
+$stateFocusTextColor: $darkGray;
+
+//Error State
+$stateErrorBorderColor: $euError;
+$stateErrorBgColor: $euNeutral;
+$stateErrorTextColor: $euError;
+
+//Hover State
+$stateHoverBorderColor: $lightestGray;
+$stateHoverBgColor: $euNeutral;
+$stateHoverTextColor: $darkGray;
+
+//Forms
+$inputBgColor: $euNeutral;
+$inputTextColor: $darkGray;
+$invalidInputBorderColor: $euError;
+$inputGroupTextColor: $darkGray;
+
+@import "../primeng-rules";
+
+//Custom css
+@import "utilities";
+@import "../../components/ui-menubar";
+@import "../../components/ui-dialog";
+@import "../../components/ui-orderlist";
+@import "../../components/ui-button";
+@import "../../components/ui-checkbox";
+@import "../../components/ui-accordion";
+@import "../../components/ui-panel";
+@import "../../components/ui-input";
+@import "../../components/ui-calendar";
+@import "../../components/ui-selectbutton";
+@import "../../components/ui-grid";
+@import "../../components/ui-splitbutton";
+@import "../../components/ui-dropdown";
+@import "../../components/ui-overlaypanel";
+@import "../../components/ui-table";
+@import "../../components/ui-radiobutton";
+@import "../../components/ui-treetable";
+@import "../../components/ui-tabview";
+@import "../../components/ui-progress-spinner";
+@import "../../components/ui-form";
+@import "../../components/ui-tooltip";
+@import "../../components/ui-header";
+@import "../../components/ui-footer";
+@import "../../components/ui-breadcrumb";
+@import "../../components/ui-tree";
+@import "../../components/ui-sidebar";
+@import "../../components/ui-switch";
+@import "../../components/ui-fileupload";
+@import "../../components/ui-card";
+@import "../../components/ui-toast";
+@import "../../components/ui-listbox";
+@import "../../components/ui-tabmenu";
+@import "../../components/ui-autocomplete";
+@import "../../components/ui-contextmenu";
+@import "../../components/ui-paginator";
+@import "../../components/ui-progressbar";
+@import "../../components/ui-badge";
+@import "../../components/ui-steps";

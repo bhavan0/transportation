@@ -1,0 +1,90 @@
+body {
+  p-tabmenu {
+    display: block;
+
+    .ui-tabmenu {
+      padding: 0;
+      border: 0;
+      background: $euTransparent;
+
+      .ui-tabmenu-nav {
+        padding: 0;
+        border-width: 0 0 2px 0;
+        border-style: solid;
+        border-color: $xtraLightestGray;
+        background: $euTransparent;
+
+        li.ui-tabmenuitem {
+          border-width: 0 0 1px 0;
+          border-style: solid;
+          border-color: $euTransparent;
+          color: $lightGray;
+          margin: 0;
+          margin-bottom: 1px;
+          background: $euTransparent;
+
+          a {
+            color: $lightGray;
+            font-weight: 400;
+            padding: 12px;
+
+            &:focus {
+              outline: none;
+            }
+          }
+
+          &:focus {
+            outline: none;
+          }
+        }
+
+        li:not(.ui-state-active):not(.ui-state-disabled):hover {
+          border-width: 0 0 1px 0;
+          border-color: $euTransparent;
+          color: $lightGray;
+          margin: 0;
+          margin-bottom: 1px;
+          background: $euTransparent;
+
+          a {
+            color: $lightGray;
+            font-weight: 400;
+          }
+        }
+
+        li:not(.ui-state-active):not(.ui-state-disabled):focus {
+          outline: none;
+        }
+
+        li.ui-state-active {
+          border-bottom: 2px;
+          border-style: solid;
+          border-color: $euSecondary;
+          color: $euSecondary;
+          margin: 0;
+          background: $euTransparent;
+
+          a {
+            color: $euSecondary;
+          }
+
+          &:hover {
+            border-width: 0 0 2px 0;
+            border-color: $euSecondary;
+            color: $euSecondary;
+            margin: 0;
+            background: $euTransparent;
+
+            a {
+              color: $euSecondary;
+            }
+          }
+
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+    }
+  }
+}

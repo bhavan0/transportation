@@ -1,0 +1,43 @@
+body {
+  .ui-progress-spinner {
+    z-index: 12000;
+    width: 35px;
+    height: 35px;
+    max-height: calc(100vh - 100px);
+    position: fixed;
+    top: 44%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    .ui-progress-spinner-svg {
+      -webkit-animation-duration: 1s !important;
+      animation-duration: 1s !important;
+      .ui-progress-spinner-circle {
+        stroke-width: 4;
+        stroke: $euSecondary;
+        -webkit-animation: ui-progress-spinner-dash 1.5s ease-in-out infinite;
+        animation: ui-progress-spinner-dash 1.5s ease-in-out infinite;
+      }
+    }
+  }
+}
+
+.loading-mask {
+  z-index: 11020 !important;
+
+  .loading-info {
+    max-height: calc(100% - 100px);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+
+    .loading-text {
+      color: white;
+    }
+  }
+}

@@ -1,0 +1,234 @@
+body {
+  p-splitbutton {
+    display: inline-block;
+
+    .ui-splitbutton.ui-buttonset {
+      min-width: auto;
+
+      @media print {
+        display: none;
+      }
+
+      .ui-button.ui-state-default {
+        border: $contentBorderWidth $contentBorderStyle $contentBorderColor;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        border-radius: $borderRadius;
+        background-color: $euTransparent;
+        height: 36px;
+        padding: 0 18px;
+
+        .ui-button-text {
+          padding: 0;
+          margin-right: 14px;
+          display: inline-block;
+          color: $contentTextColor;
+        }
+
+        .ui-button-icon-left {
+          font-size: 16px;
+          left: 18px;
+          color: $lightGray;
+        }
+      }
+
+      .ui-menu-dynamic {
+        padding: 0;
+        border: $contentBorderWidth $contentBorderStyle $contentBorderColor;
+
+        .ui-menu-list {
+          padding: 8px;
+
+          .ui-menuitem {
+            margin: 0;
+
+            .ui-menuitem-link {
+              padding: 8px;
+
+              .ui-menuitem-icon {
+                margin-right: 8px;
+                font-size: 20px;
+              }
+            }
+            .ui-menuitem-link.ui-state-disabled {
+              opacity: 1;
+
+              .ui-menuitem-icon,
+              .ui-menuitem-text {
+                opacity: 0.3;
+              }
+            }
+          }
+        }
+      }
+
+      .ui-button.ui-state-default.ui-button-text-icon-left:enabled:hover {
+        border: $contentBorderWidth $contentBorderStyle $contentBorderColor;
+        border-radius: $borderRadius;
+        background-color: $euTransparent;
+      }
+
+      .ui-button.ui-state-default:enabled:focus {
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+
+      .ui-button.ui-splitbutton-menubutton {
+        width: 8px;
+        background: none !important;
+        color: inherit;
+        border: none;
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: 18px;
+        height: 8px;
+
+        &:enabled:hover {
+          -webkit-box-shadow: none;
+          box-shadow: none;
+        }
+
+        .ui-button-icon-left {
+          font-size: 10px;
+          font-weight: bolder;
+          color: $lightGray;
+          margin: 14px;
+          top: 0;
+          left: 0;
+        }
+
+        .ui-button-icon-left.pi.pi-chevron-down::before {
+          content: "\ecfc";
+        }
+
+        .ui-button-text {
+          padding: 0;
+          margin: 0;
+          display: none;
+        }
+      }
+
+      .ui-button.ui-splitbutton-menubutton.ui-button-icon-only {
+        height: 36px;
+        width: 34px;
+        padding: 0;
+
+        .ui-button-icon-left {
+          position: absolute;
+          margin: 4px;
+          padding: 0;
+          left: 6px;
+          top: 10px;
+        }
+      }
+    }
+  }
+
+  p-splitbutton.ui-splitbutton-compressed {
+    .ui-splitbutton.ui-buttonset {
+      min-width: auto;
+
+      @media print {
+        display: none;
+      }
+      .ui-button.ui-state-default {
+        border: 0;
+        &:hover {
+          box-shadow: none;
+        }
+        .ui-button-text {
+          display: none;
+        }
+      }
+      .ui-button.ui-splitbutton-menubutton.ui-button-icon-only {
+        .ui-button-icon-left {
+          display: none;
+        }
+      }
+      .ui-menu-dynamic {
+        .ui-menu-list {
+          .ui-menuitem {
+            .ui-menuitem-link {
+              white-space: nowrap;
+              .ei-trash2.ui-menuitem-icon,
+              .ei-trash2.ui-menuitem-icon ~ .ui-menuitem-text {
+                color: #e42e07;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  p-splitbutton.ui-splitbutton-compressed.ui-splitbutton-left {
+    .ui-splitbutton.ui-buttonset {
+      .ui-menu-dynamic {
+        width: auto;
+        left: auto !important;
+        right: 18px !important;
+      }
+    }
+  }
+
+  p-splitbutton.ui-splitbutton-compressed.ui-splitbutton-secondary {
+    .ui-splitbutton.ui-buttonset {
+      .ui-button.ui-state-default {
+        padding: 0 24px;
+        border: $contentBorderWidth $contentBorderStyle $euSecondary;
+        .ui-button-icon-left {
+          color: $euSecondary;
+          left: 24px;
+        }
+      }
+      .ui-splitbutton-menubutton {
+        border: none !important;
+        left: 0;
+        right: 0;
+        width: 100%;
+      }
+    }
+  }
+
+  .ui-menu-dynamic {
+    padding: 0;
+    border: $contentBorderWidth $contentBorderStyle $contentBorderColor;
+    width: auto;
+
+    .ui-menu-list {
+      padding: 8px;
+
+      .ui-menuitem {
+        margin: 0;
+
+        .ui-menuitem-link {
+          padding: 8px;
+          white-space: nowrap;
+          .ei-trash2.ui-menuitem-icon,
+          .ei-trash2.ui-menuitem-icon ~ .ui-menuitem-text {
+            color: #e42e07;
+          }
+
+          .ei-fav.ui-menuitem-icon,
+          .ei-fav.ui-menuitem-icon ~ .ui-menuitem-text {
+            color: #EE7D11;
+          }
+
+          .ui-menuitem-icon {
+            margin-right: 8px;
+            font-size: 20px;
+          }
+        }
+        .ui-menuitem-link.ui-state-disabled {
+          opacity: 1;
+
+          .ui-menuitem-icon,
+          .ui-menuitem-text {
+            opacity: 0.3;
+          }
+        }
+      }
+    }
+  }
+}

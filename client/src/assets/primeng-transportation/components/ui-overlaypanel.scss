@@ -1,0 +1,59 @@
+body {
+  .ui-overlaypanel {
+    // z-index: 11015 !important;
+    border: 1px solid $lightestGray;
+
+    &::before {
+      border-bottom-color: $lightestGray;
+    }
+
+    &::after {
+      border-bottom-color: $euNeutral;
+    }
+
+    .ui-overlaypanel-content {
+      padding: 0 24px 24px 24px;
+      margin-top: 28px;
+      overflow-y: auto;
+      height: 320px;
+    }
+
+    .ui-overlaypanel-close {
+      top: 6px;
+      right: 8px;
+      width: 16px;
+      height: 16px;
+      line-height: normal;
+      border-radius: 0;
+      border: none;
+    }
+  }
+
+  .ui-overlaypanel.ui-overlaypanel-flipped {
+    margin-top: -12px;
+
+    &::before {
+      border-top-color: $lightestGray;
+    }
+
+    &::after {
+      border-top-color: $euNeutral;
+    }
+  }
+
+  // Temp fix for overlay tooltip issue in IE
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .ui-overlaypanel-arrow-left {
+      .ui-overlaypanel:after,
+      .ui-overlaypanel:before {
+        display: inline-block;
+        left: 8px;
+        right: auto;
+      }
+
+      .ui-overlaypanel:before {
+        left: 7.5px;
+      }
+    }
+  }
+}

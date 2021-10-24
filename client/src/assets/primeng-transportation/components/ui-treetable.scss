@@ -1,0 +1,66 @@
+body {
+  .ui-treetable {
+    background: $euNeutral;
+    table {
+      table-layout: auto;
+    }
+    .ui-treetable-caption {
+      padding: 0;
+      border: 0;
+      margin-bottom: 12px;
+    }
+    .ui-treetable-thead {
+      tr {
+        th {
+          border-width: 0 0 1px 0;
+          border-style: solid;
+          border-color: $lightestGray;
+          background: #d2e3ed;
+          padding: 0 24px;
+          font-size: $fontSize;
+          line-height: 15px;
+          color: $headerTextColor;
+          height: 40px;
+          min-width: 100px;
+          text-align: left;
+
+          &:first-child {
+            padding-left: 45px;
+          }
+        }
+      }
+    }
+    .ui-treetable-tbody {
+      tr {
+        td {
+          border-width: 0 0 1px 0;
+          border-style: solid;
+          border-color: $lightestGray;
+          background: $euTransparent;
+          padding: 0 24px;
+          font-size: $fontSize;
+          line-height: 15px;
+          height: 40px;
+          vertical-align: middle;
+
+          &:first-child {
+            p-treetabletoggler {
+              &:empty {
+                margin-right: 37px;
+              }
+            }
+          }
+
+          .ui-treetable-toggler {
+            top: 2px;
+            height: auto;
+            margin-right: 16px;
+          }
+          .ui-treetable-toggler {
+            top: 1px;
+          }
+        }
+      }
+    }
+  }
+}

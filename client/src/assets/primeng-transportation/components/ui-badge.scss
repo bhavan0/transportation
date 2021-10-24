@@ -1,0 +1,39 @@
+body {
+  .ui-badge {
+    padding: 2px 8px;
+    border-color: $darkGray;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 12px;
+    color: $darkGray;
+  }
+  .ui-badge.submitted {
+    border-color: #28a745;
+    color: #28a745;
+  }
+  .ui-badge.pending {
+    border-color: #f5a710;
+    color: #f5a710;
+  }
+  .ui-badge.importedbylab {
+    border-color: #28a745;
+    color: #28a745;
+  }
+  .ui-badge.notsenterror_submitted {
+    border-color: #28a745;
+    color: #28a745;
+  }
+  .ui-badge.negativeackreceived_submitted {
+    border-color: #28a745;
+    color: #28a745;
+  }
+
+  .ui-badge-exclamation.notsenterror_submitted::before {
+    content: "!";
+    color: #e42e07;
+  }
+  .ui-badge-exclamation.negativeackreceived_submitted::before {
+    content: "!";
+    color: #e42e07;
+  }
+}

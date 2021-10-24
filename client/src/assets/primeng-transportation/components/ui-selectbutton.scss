@@ -1,0 +1,88 @@
+body {
+  .ui-selectbutton {
+    @media print {
+      display: none;
+    }
+
+    .ui-button,
+    .ui-button:not(.ui-state-disabled):not(.ui-state-active):hover {
+      background-color: $euNeutral;
+      border-color: $euSecondary;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+
+      .ui-button-icon-left {
+        color: $darkGray;
+        top: 6px;
+        margin-top: 0;
+        left: 10px;
+      }
+
+      .ui-button-text {
+        padding: 6px 10px 6px 34px;
+        color: $darkestGray;
+      }
+    }
+    .ui-button.ui-state-active,
+    .ui-button.ui-state-active.ui-state-focus,
+    .ui-button.ui-state-active:not(.ui-state-disabled):hover {
+      background-color: $euSecondary;
+      border-color: $euSecondary;
+
+      .ui-button-icon-left {
+        color: $euNeutral;
+        top: 6px;
+        margin-top: 0;
+        left: 10px;
+      }
+
+      .ui-button-text {
+        padding: 6px 10px 6px 34px;
+        color: $euNeutral;
+      }
+    }
+
+    .ui-button.ui-state-default {
+      &:first-child {
+        border-radius: $borderRadius 0 0 $borderRadius;
+      }
+
+      &:last-child {
+        border-radius: 0 $borderRadius $borderRadius 0;
+      }
+    }
+  }
+
+  .ui-selectbutton-tertiary {
+    .ui-selectbutton {
+      .ui-button,
+      .ui-button:not(.ui-state-disabled):not(.ui-state-active):hover {
+        background-color: $euNeutral;
+        border-color: #65787d;
+
+        .ui-button-icon-left {
+          color: $darkGray;
+        }
+
+        .ui-button-text {
+          color: $darkestGray;
+        }
+      }
+      .ui-button.ui-state-active,
+      .ui-button.ui-state-active.ui-state-focus,
+      .ui-button.ui-state-active:not(.ui-state-disabled):hover {
+        background-color: #65787d;
+        border-color: #65787d;
+
+        .ui-button-icon-left {
+          color: $euNeutral;
+        }
+
+        .ui-button-text {
+          color: $euNeutral;
+        }
+      }
+    }
+  }
+}

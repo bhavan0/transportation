@@ -1,0 +1,570 @@
+.layout-nav-top {
+  p-menubar {
+    width: 100%;
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 101;
+
+    @media print {
+      display: none;
+    }
+
+    .ui-menubar {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+      flex-direction: row-reverse;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      height: 80px;
+      padding: 0 24px;
+      border-radius: 0;
+      border: 0;
+      background: $euPrimary;
+      color: $euNeutral;
+
+      &::after {
+        display: none;
+      }
+
+      .ui-menubar-root-list {
+        display: -webkit-inline-box;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+
+        .ui-menuitem {
+          &:last-child {
+            border-width: 0;
+            border-style: solid;
+            border-color: $euPrimaryLight;
+          }
+
+          &:only-child {
+            border-width: 0 0 0 0;
+          }
+
+          .ui-menuitem-link {
+            display: -webkit-inline-box;
+            display: -ms-inline-flexbox;
+            display: inline-flex;
+            height: 80px;
+            padding: 7px 14px;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+
+            &:hover {
+              background-color: $euPrimary;
+
+              .ui-menuitem-icon {
+                color: $euSecondary;
+              }
+
+              .ui-menuitem-text {
+                color: $euSecondary;
+              }
+            }
+
+            &:focus {
+              outline: none;
+            }
+
+            .ui-menuitem-text {
+              color: $euNeutral;
+            }
+
+            .ui-menuitem-icon {
+              margin: 0;
+              margin-bottom: 8px;
+              color: $euNeutral;
+
+              &::before {
+                font-size: 20px;
+              }
+            }
+
+            .ui-submenu-icon {
+              margin: 0;
+              display: none;
+              color: $euNeutral;
+            }
+          }
+
+          .ui-menuitem-link.ui-state-active {
+            color: $euSecondary;
+            background-color: $lightestGray;
+
+            .ui-menuitem-icon {
+              color: $euSecondary;
+            }
+
+            .ui-menuitem-text {
+              color: $euSecondary;
+            }
+          }
+        }
+
+        .ui-menuitem.ui-menuitem-active {
+          .ui-menuitem-link {
+            background-color: $euPrimary;
+
+            .ui-menuitem-icon {
+              color: $euSecondary;
+            }
+
+            .ui-menuitem-text {
+              color: $euSecondary;
+            }
+          }
+        }
+
+        .ui-menuitem:last-child {
+          .ui-submenu {
+            .ui-submenu-list {
+              left: auto !important;
+              right: 0;
+            }
+          }
+        }
+
+        .ui-menu-separator {
+          height: auto;
+          margin: 0.8rem 1rem;
+          border: 1px solid $euPrimaryLight;
+        }
+
+        .ui-submenu-list {
+          border: 0;
+          background-color: $euPrimaryLight;
+          padding: 0;
+
+          .ui-menuitem {
+            margin: 0;
+            .ui-menuitem-link {
+              width: 100%;
+              height: 100%;
+              padding: 0.25rem 1.5rem;
+              -webkit-box-orient: horizontal;
+              -webkit-box-direction: normal;
+              -ms-flex-direction: row;
+              flex-direction: row;
+              -webkit-box-pack: start;
+              -ms-flex-pack: start;
+              justify-content: flex-start;
+              background-color: $euPrimaryLight;
+
+              &:hover {
+                color: $euSecondary;
+                background-color: $lightestGray;
+
+                .ui-menuitem-icon {
+                  color: $euSecondary;
+                }
+
+                .ui-menuitem-text {
+                  color: $euSecondary;
+                }
+              }
+
+              .ui-menuitem-icon {
+                color: $euNeutral;
+                margin-right: 5px;
+              }
+
+              .ui-menuitem-text {
+                color: $euNeutral;
+              }
+            }
+          }
+        }
+
+        .ui-submenu-list-right {
+          right: 0;
+        }
+      }
+
+      .ui-menubar-custom {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        float: left;
+
+        .app-logo {
+          margin: auto 0;
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          align-items: center;
+
+          .full-logo {
+            // display: none;
+            // margin: auto 0;
+            cursor: pointer;
+            display: inline-block;
+          }
+
+          .half-logo {
+            // display: inline-block;
+            // margin: auto 4px auto 0;
+            display: none;
+          }
+
+          // .site-name {
+          //   font-size: 16px;
+          //   margin: auto 0;
+          // }
+        }
+      }
+    }
+  }
+
+  p-breadcrumb + .content {
+    margin-top: 0;
+  }
+
+  .content {
+    margin-top: 164px;
+  }
+}
+
+.layout-nav-left {
+  p-menubar {
+    
+    @media print {
+      display: none;
+    }
+
+    .ui-menubar {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: reverse;
+      -ms-flex-direction: column-reverse;
+      flex-direction: column-reverse;
+      -webkit-box-pack: end;
+      -ms-flex-pack: end;
+      justify-content: flex-end;
+      padding: 0;
+      border-radius: 0;
+      border: 0;
+      background: $euPrimary;
+      color: $euNeutral;
+
+      &::after {
+        display: none;
+      }
+
+      .ui-menubar-root-list {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+
+        .ui-menuitem {
+          .ui-menuitem-link {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            align-items: center;
+            height: 60px;
+            padding: 0 15px;
+            border-width: 0 0 0 4px;
+            border-style: solid;
+            border-color: $euTransparent;
+            border-radius: 0;
+            background-color: $euTransparent;
+            outline: none;
+
+            &:hover {
+              background: $lighterGray;
+              border-width: 0 0 0 4px;
+              border-style: solid;
+              border-color: $euSecondary;
+              border-radius: 0;
+            }
+
+            .ui-menuitem-text {
+              width: 0;
+              opacity: 0;
+              white-space: nowrap;
+              visibility: hidden;
+              color: $euNeutral;
+              margin: auto 0 auto 16px;
+              -webkit-transition: opacity 0.2s, visibility 0.2s; /* For Safari 3.1 to 6.0 */
+              -o-transition: opacity 0.2s, visibility 0.2s;
+              transition: opacity 0.2s, visibility 0.2s;
+            }
+
+            .ui-menuitem-icon {
+              margin: auto 0;
+              color: $euNeutral;
+              width: auto;
+
+              &::before {
+                font-size: 26px;
+              }
+            }
+
+            .ui-submenu-icon {
+              margin: 0;
+              display: none;
+              color: $euNeutral;
+            }
+          }
+
+          .ui-menuitem-link.ui-state-active {
+            background-color: $lighterGray;
+            border-width: 0 0 0 4px;
+            border-style: solid;
+            border-color: $euSecondary;
+            border-radius: 0;
+
+            &:focus {
+              outline: none;
+            }
+          }
+        }
+
+        // .ui-menuitem.ui-menuitem-active {
+        //   .ui-menuitem-link {
+        //     background: $lighterGray;
+        //     border-width: 0 0 0 4px;
+        //     border-style: solid;
+        //     border-color: $euSecondary;
+        //     border-radius: 0;
+        //   }
+        // }
+
+        .ui-menu-separator {
+          height: auto;
+          margin: 0.8rem 1rem;
+          border: 1px solid $euPrimaryLight;
+        }
+
+        .ui-submenu {
+          display: none;
+
+          .ui-submenu-list {
+            border: 0;
+            background-color: $euPrimary;
+            position: relative;
+            top: 0 !important;
+            padding: 0;
+
+            .ui-menuitem {
+              margin: 0;
+
+              .ui-menuitem-link {
+                width: 100%;
+                padding: 0 15px;
+                -webkit-box-orient: horizontal;
+                -webkit-box-direction: normal;
+                -ms-flex-direction: row;
+                flex-direction: row;
+                -webkit-box-pack: start;
+                -ms-flex-pack: start;
+                justify-content: flex-start;
+                background-color: $lighterGray;
+                border: 0;
+
+                &:hover {
+                  border-width: 0 0 0 4px;
+                  border-style: solid;
+                  border-color: $euSecondary;
+                  border-radius: 0;
+                }
+
+                .ui-menuitem-icon {
+                  color: $euNeutral;
+                  margin-left: 42px;
+                }
+
+                .ui-menuitem-text {
+                  color: $euNeutral;
+                }
+              }
+            }
+          }
+        }
+
+        .ui-submenu-list-right {
+          right: 0;
+        }
+      }
+
+      .ui-menubar-custom {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        float: left;
+        padding: 0 15px;
+        height: 52px;
+        border-width: 0 0 1px 0;
+        border-style: solid;
+        border-color: $euPrimaryLight;
+
+        .app-logo {
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          align-items: center;
+          -webkit-box-flex: 1;
+          -ms-flex-positive: 1;
+          flex-grow: 1;
+
+          .full-logo {
+            display: inline-block;
+            margin: auto 0;
+            width: 0;
+            opacity: 0;
+            visibility: hidden;
+            -webkit-transition: opacity 0.2s, visibility 0.2s; /* For Safari 3.1 to 6.0 */
+            -o-transition: opacity 0.2s, visibility 0.2s;
+            transition: opacity 0.2s, visibility 0.2s;
+          }
+
+          .site-name {
+            width: 0;
+            opacity: 0;
+            white-space: nowrap;
+            visibility: hidden;
+            font-size: 16px;
+            margin: auto auto auto 8px;
+            -webkit-transition: opacity 0.2s, visibility 0.2s; /* For Safari 3.1 to 6.0 */
+            -o-transition: opacity 0.2s, visibility 0.2s;
+            transition: opacity 0.2s, visibility 0.2s;
+          }
+
+          .half-logo {
+            width: 34px;
+            opacity: 1;
+            visibility: visible;
+            margin: auto 0;
+            -webkit-transition: opacity 0.2s, visibility 0.2s; /* For Safari 3.1 to 6.0 */
+            -o-transition: opacity 0.2s, visibility 0.2s;
+            transition: opacity 0.2s, visibility 0.2s;
+          }
+        }
+      }
+    }
+  }
+
+  .app-header {
+    height: 100%;
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1001;
+    width: 60px;
+    -webkit-transition: width 0.2s; /* For Safari 3.1 to 6.0 */
+    -o-transition: width 0.2s;
+    transition: width 0.2s;
+    background: #003883;
+    
+    &:hover {
+      width: 240px;
+
+      p-menubar {
+        .ui-menubar {
+          .ui-menubar-root-list {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+
+            .ui-menuitem {
+              .ui-menuitem-link {
+                -webkit-box-align: end;
+                -ms-flex-align: end;
+                align-items: end;
+
+                .ui-menuitem-text {
+                  width: auto;
+                  opacity: 1;
+                  visibility: visible;
+                }
+              }
+            }
+
+            .ui-submenu {
+              display: block;
+            }
+          }
+          .ui-menubar-custom {
+            .app-logo {
+              .full-logo {
+                -webkit-box-align: end;
+                -ms-flex-align: end;
+                align-items: end;
+                opacity: 1;
+                visibility: visible;
+                width: 210px;
+              }
+
+              .site-name {
+                width: auto;
+                opacity: 1;
+                visibility: visible;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  p-breadcrumb + .content {
+    margin: 0 0 0 60px;
+    -webkit-transition: margin 0.2s; /* For Safari 3.1 to 6.0 */
+    -o-transition: margin 0.2s;
+    transition: margin 0.2s;
+  }
+
+  .content {
+    margin: 76px 0 0 60px;
+    -webkit-transition: margin 0.2s; /* For Safari 3.1 to 6.0 */
+    -o-transition: margin 0.2s;
+    transition: margin 0.2s;
+  }
+}
+
+.layout-nav-left.layout-compress .app-header .app-header:hover ~ p-breadcrumb + .content {
+  margin: 100px 0 0 240px;
+  -webkit-transition: margin 0.2s; /* For Safari 3.1 to 6.0 */
+  -o-transition: margin 0.2s;
+  transition: margin 0.2s;
+}
+
+.layout-nav-left.layout-compress .app-header .app-header:hover ~ .content {
+  margin: 52px 0 0 240px;
+  -webkit-transition: margin 0.2s; /* For Safari 3.1 to 6.0 */
+  -o-transition: margin 0.2s;
+  transition: margin 0.2s;
+}
+
+.content {
+  @media print {
+    margin: 0 !important;
+  }
+}

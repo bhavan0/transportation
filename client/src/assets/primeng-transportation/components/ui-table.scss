@@ -1,0 +1,451 @@
+body {
+  .ui-table {
+    .ui-table-loading,
+    .ui-table-loading-content {
+      position: fixed;
+    }
+
+    .ui-table-caption {
+      border: none;
+      position: relative;
+      width: 480px;
+      padding: 0;
+      width: 100%;
+      margin-bottom: 12px;
+      background-color: $euTransparent;
+      text-align: left;
+    }
+    .ui-table-wrapper,
+    .ui-table-scrollable-wrapper {
+      background: #ffffff;
+      .ui-table-scrollable-header-box {
+        margin-right: 17px !important;
+      }
+      table {
+        table-layout: fixed;
+
+        @media print {
+          border-width: 0;
+          border-style: solid;
+          border-color: $lightestGray;
+          background: $euNeutral;
+        }
+        .ui-table-thead {
+          .pi,
+          span.pi {
+            font-family: "primeicons" !important;
+          }
+          > tr {
+            outline: none;
+            @media print {
+              border-width: 1px;
+              border-style: solid;
+              border-color: rgba(0, 0, 0, 0.2);
+            }
+
+            > th {
+              border-width: 0;
+              border-style: solid;
+              border-color: $lightestGray;
+              background: #d2e3ed;
+              padding: 0 12px;
+              font-size: $fontSize;
+              line-height: 15px;
+              color: $headerTextColor;
+              height: 40px;
+              text-align: left;
+              outline: none;
+
+              p-tableheadercheckbox {
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+
+                .pi.pi-check::before {
+                  font-family: transportation-icon !important;
+                  content: "\ec34";
+                }
+              }
+
+              &:focus {
+                outline: 0;
+              }
+
+              @media print {
+                border-width: 0;
+              }
+            }
+
+            > th.min-width {
+              width: 50px;
+            }
+
+            > th.medium-width {
+              width: 110px;
+            }
+          }
+        }
+        .ui-table-tbody {
+          > tr {
+            background: $euNeutral;
+            outline: none;
+
+            @media print {
+              border-width: 0 1px 1px 1px;
+              border-style: solid;
+              border-color: rgba(0, 0, 0, 0.2);
+            }
+
+            &:hover {
+              background: #edf4f8;
+            }
+
+            > td {
+              border-width: 0 0 1px 0;
+              border-style: solid;
+              border-color: $lightestGray;
+              background: $euTransparent;
+              padding: 0 12px;
+              font-size: $fontSize;
+              line-height: 15px;
+              height: 40px;
+              vertical-align: middle;
+              outline: none;
+
+              p-tablecheckbox {
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+
+                .pi.pi-check::before {
+                  font-family: transportation-icon !important;
+                  content: "\ec34";
+                }
+              }
+
+              p-cellEditor {
+                display: block;
+                position: relative;
+
+                .ui-autocomplete-dd {
+                  input.ui-inputtext,
+                  input {
+                    background: $euTransparent;
+                    border: $contentBorderWidth $contentBorderStyle
+                      $euSecondaryLight;
+                    border-width: 0 0 2px 0;
+                    border-radius: 0;
+                    padding: 10px 0;
+
+                    &:hover,
+                    &:enabled:hover:not(.ui-state-error) {
+                      border-color: $euSecondaryLight;
+                    }
+
+                    &:focus,
+                    &:enabled:focus:not(.ui-state-error) {
+                      border-width: 0 0 2px 0;
+                      border-color: $euSecondaryLight;
+                      outline: none;
+                      -webkit-box-shadow: none;
+                      box-shadow: none;
+                    }
+                  }
+
+                  .ui-autocomplete-dropdown.ui-corner-all {
+                    display: none;
+                  }
+                }
+              }
+
+              @media print {
+                border-width: 0;
+              }
+            }
+
+            > td.ui-editable-column {
+              padding: 0 12px;
+              width: 240px;
+
+              .ui-autocomplete-button {
+                position: absolute;
+                width: auto;
+                right: 0;
+
+                button.ui-button.ui-state-default.ui-button-secondary {
+                  background-color: $euNeutral;
+                  margin-right: 4px;
+                }
+
+                button.ui-button.ui-state-default.ui-button-secondary:enabled:hover {
+                  background-color: $euNeutral;
+                }
+              }
+            }
+
+            > td {
+              .table-fields-option {
+                display: flex;
+                flex-direction: row-reverse;
+                .more-options {
+                  display: inline-flex;
+                  align-items: center;
+                  a {
+                    cursor: pointer;
+                  }
+                }
+              }
+            }
+          }
+
+          > tr.ui-state-highlight {
+            background: rgba(245, 167, 16, 0.1);
+
+            &:hover {
+              background: rgba(245, 167, 16, 0.1);
+            }
+          }
+
+          tr.ui-contextmenu-selected.ui-contextmenu-focused {
+            background: #edf4f8;
+          }
+        }
+      }
+      .ui-sortable-column.ui-state-highlight {
+        color: #ee7d11;
+        p-sorticon {
+          .ui-sortable-column-icon {
+            color: #ee7d11;
+          }
+        }
+      }
+      .ui-sortable-column {
+        padding: 16px 30px 16px 12px !important;
+        position: relative;
+
+        &:not(.ui-state-highlight):hover {
+          background-color: #d2e3ed;
+          color: $headerTextColor;
+          .ui-sortable-column-icon {
+            color: $lightestGray;
+          }
+        }
+        p-sorticon {
+          display: inline-flex;
+          // position: absolute;
+          // top: 35%;
+          // right: 16px;
+
+          .ui-sortable-column-icon {
+            color: $lightestGray;
+            font-family: transportation-icon !important;
+            display: inline-flex;
+            align-items: center;
+            flex-direction: column;
+          }
+
+          .ui-sortable-column-icon.pi-sort-alt::before {
+            content: "\ecf7";
+          }
+          .ui-sortable-column-icon.pi-sort-amount-up-alt::before {
+            content: "\ecf8";
+          }
+          .ui-sortable-column-icon.pi-sort-amount-down::before {
+            content: "\ecf9";
+          }
+
+          .ui-sortable-column-icon.pi-sort-down {
+            margin-top: -8px;
+          }
+        }
+      }
+    }
+    .ui-table-summary {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      border: none;
+      background-color: #0072bc;
+      color: #ffffff;
+      font-weight: normal;
+
+      .divider {
+        border-color: #ffffff;
+      }
+
+      a.anchor {
+        color: #ffffff;
+      }
+    }
+    .ui-paginator-bottom {
+      border: none;
+      background-color: $euTransparent;
+      padding: 0;
+      margin-top: 12px;
+      text-align: right;
+
+      .ui-paginator-element {
+        background-color: $euWhite;
+        border: $contentBorderWidth $contentBorderStyle $contentBorderColor;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        border-radius: $euBorderRadius;
+        padding: 8px;
+        width: 36px;
+        height: 36px;
+        display: inline-block;
+        margin-right: 8px;
+
+        &:last-child {
+          margin: 0;
+        }
+
+        &.ui-state-disabled {
+          opacity: 0.5;
+        }
+
+        .ui-paginator-icon {
+          font-size: 16px;
+          border: 0;
+          position: relative;
+          margin: auto;
+          top: 0;
+          left: 0;
+        }
+      }
+
+      .ui-paginator-pages {
+        height: auto;
+
+        .ui-paginator-element {
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+  .hide-summary {
+    .ui-table {
+      .ui-table-summary {
+        display: none;
+      }
+    }
+  }
+  .ui-table {
+    .ui-table-scrollable-wrapper {
+      table.ui-table-scrollable-header-table,
+      table.ui-table-scrollable-body-table {
+        table-layout: fixed;
+      }
+    }
+  }
+  .ui-table.ui-table-hoverable-rows
+    .ui-table-tbody
+    > tr:not(.ui-state-highlight):not(.ui-contextmenu-selected):hover {
+    background: #edf4f8;
+  }
+  .ui-table-caption-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+  }
+  .small-table {
+    .ui-table {
+      > table {
+        .ui-table-thead {
+          > tr {
+            > th {
+              padding: 8px 10px;
+              background: $euNeutral;
+            }
+          }
+        }
+        .ui-table-tbody {
+          > tr {
+            > td {
+              padding: 8px 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .table-autoheight {
+    .ui-table {
+      > table {
+        .ui-table-tbody {
+          > tr {
+            > td {
+              padding: 12px;
+              height: auto;
+            }
+          }
+        }
+      }
+    }
+  }
+  table {
+    thead {
+      > tr {
+        > th {
+          background: $euTransparent;
+          height: 28px;
+          text-align: left;
+          padding: 0 8px;
+        }
+      }
+    }
+    tbody {
+      > tr {
+        > td {
+          background: $euTransparent;
+          height: 28px;
+          text-align: left;
+          padding: 0 8px;
+        }
+      }
+    }
+  }
+  table.ui-table-bordered {
+    border-collapse: collapse;
+    thead {
+      > tr {
+        > th {
+          border-width: 1px 1px 0 1px;
+          border-style: solid;
+          border-color: rgba(0, 0, 0, 0.2);
+          padding: 0 12px;
+        }
+      }
+    }
+    tbody {
+      border-width: 1px;
+      border-style: solid;
+      border-color: rgba(0, 0, 0, 0.2);
+      > tr {
+        > td {
+          border-width: 1px 0 0 1px;
+          border-style: solid;
+          border-color: rgba(0, 0, 0, 0.2);
+          padding: 0 12px;
+
+          &:last-child {
+            border-width: 1px 1px 0 1px;
+          }
+        }
+        > td.has-error {
+          border: 1px solid #e42e07 !important;
+        }
+        &:last-child {
+          > td {
+            border-width: 1px 0 1px 1px;
+            &:last-child {
+              border-width: 1px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,240 @@
+body p-sidebar.ui-sidebar-in-page {
+  position: relative;
+  .ui-sidebar {
+    position: relative;
+    z-index: 99 !important;
+    opacity: 1 !important;
+    -webkit-transform: none;
+    -ms-transform: none;
+    transform: none;
+    top: 0;
+    right: 0;
+    width: 52px;
+    min-height: 232px;
+    padding: 24px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: none;
+    -webkit-transition: width 0.2s; /* For Safari 3.1 to 6.0 */
+    -o-transition: width 0.2s;
+    transition: width 0.2s;
+
+    .ui-sidebar-close {
+      display: none;
+    }
+
+    .ui-sidebar-header {
+      padding: 0;
+      border: 0;
+      margin-left: auto;
+      width: 52px;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      position: absolute;
+      right: 0;
+
+      .ui-sidebar-trigger {
+        font-size: 16px;
+        cursor: pointer;
+        margin: 0 auto;
+  
+        .ei-chevron-right {
+          display: inline-block;
+          transition: display 1s;
+        }
+  
+        .ei-chevron-left {
+          display: none;
+          transition: display 1s;
+        }
+      }
+  
+      .ui-sidebar-title {
+        display: block;
+        white-space: nowrap;
+        position: absolute;
+        top: 32px;
+        left: 34px;
+        text-transform: uppercase;
+        transform-origin: 0 0;
+        transform: rotate(90deg);
+        color: rgba(0, 0, 0, 0.5);
+        transition: display 1s;
+      }
+    }
+
+    .ui-sidebar-content {
+      display: none;
+      padding: 0;
+    }
+  }
+
+  .ui-sidebar.ui-sidebar-active {
+    width: 240px;
+
+    .ui-sidebar-trigger {
+      right: 16px;
+      left: auto;
+
+      .ei-chevron-right {
+        display: none;
+      }
+
+      .ei-chevron-left {
+        display: inline-block;
+      }
+    }
+
+    .ui-sidebar-title{
+      display: none;
+    }
+
+    .ui-sidebar-content {
+      display: block;
+      padding: 0 32px 0 24px;
+    }
+  }
+}
+
+body p-sidebar.ui-sidebar-in-page.ui-sidebar-fixed {
+  .ui-sidebar {
+    position: fixed;
+  }
+}
+
+body p-sidebar.ui-sidebar-in-page.ui-sidebar-right {
+  .ui-sidebar {
+    .ui-sidebar-trigger {
+      .ei-chevron-right {
+        display: none;
+      }
+  
+      .ei-chevron-left {
+        display: inline-block;
+      }
+    }
+  }
+
+  .ui-sidebar.ui-sidebar-active {
+    .ui-sidebar-trigger {
+      .ei-chevron-right {
+        display: inline-block;
+      }
+
+      .ei-chevron-left {
+        display: none;
+      }
+    }
+  }
+}
+
+body p-sidebar {
+  .ui-sidebar {
+    padding: 0;
+    width: 625px;
+    display: flex;
+    flex-direction: column;
+
+    .ui-sidebar-header {
+      margin: 0;
+      font-size: 18px;
+      color: $darkGray;
+      border-bottom: 1px solid $xtraLightestGray;
+      padding: 20px 24px;
+
+      span {
+        font-size: 18px;
+      }
+    }
+
+    .ui-sidebar-content {
+      padding: 20px 24px;
+      overflow-y: auto;
+    }
+
+    .ui-sidebar-close {
+      position: absolute;
+      cursor: pointer;
+      top: 24px;
+      right: 24px;
+      font-size: 19px;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+    }
+
+    .ui-sidebar-footer {
+      padding: 16px 24px;
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+      border-width: 1px 0 0 0;
+      border-style: solid;
+      border-color: rgba(0,0,0,0.2);
+    }
+  }
+}
+
+body p-sidebar.ui-sidebar-medium {
+  .ui-sidebar {
+    width: 720px;
+  }
+}
+
+body p-sidebar.ui-sidebar-large {
+  .ui-sidebar {
+    width: 1200px;
+  }
+}
+
+body > .ui-sidebar {
+  padding: 0 !important;
+  width: auto !important;
+  display: flex;
+
+  .ui-sidebar-header {
+    margin: 0;
+    font-size: 18px;
+    color: $darkGray;
+    border-bottom: 1px solid $xtraLightestGray;
+    padding: 20px 24px;
+
+    span {
+      font-size: 18px;
+    }
+  }
+
+  .ui-sidebar-content {
+    padding: 20px 24px;
+    overflow-y: auto;
+  }
+
+  .ui-sidebar-close {
+    position: absolute;
+    cursor: pointer;
+    top: 24px;
+    right: 24px;
+    font-size: 19px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+
+  .ui-sidebar-footer {
+    padding: 16px 24px;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    border-width: 1px 0 0 0;
+    border-style: solid;
+    border-color: rgba(0,0,0,0.2);
+  }
+}
+
+body > .ui-sidebar.ui-sidebar-full {
+  width: 100% !important;
+}

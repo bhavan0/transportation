@@ -1,0 +1,31 @@
+<div #dialogContent class="ui-dynamic-dialog-body">
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            <div class="form-label-div">
+                <label class="form-label" for="BusNumber">Bus Number</label>
+            </div>
+            <div class="form-input-div">
+                <input id="BusNumber" [(ngModel)]="bus.number" type="number" size="30" pInputText [disabled]="editMode"
+                    required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-label-div">
+                <label class="form-label" for="BusName">Bus Name</label>
+            </div>
+            <div class="form-input-div">
+                <input id="BusName" [(ngModel)]="bus.name" type="text" size="100" pInputText required>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="ui-dynamic-dialog-footer">
+    <div class="text-right">
+        <button pButton [disabled]="disableSave()" label="Save" class="m-r-12" (click)="saveBus()"></button>
+        <button pButton label="Cancel" class="ui-button-tertiary" (click)="closeDialogBox()"></button>
+    </div>
+</div>

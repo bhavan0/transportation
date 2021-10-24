@@ -1,0 +1,22 @@
+<div #dialogContent class="ui-dynamic-dialog-body">
+    <div class="form-horizontal">
+
+        <div class="text-center">
+            <div class="form-group" style="padding-left:270px">
+                <div class="form-label-div">
+                    <label class="form-label" for="name">Name</label>
+                </div>
+                <div class="form-input-div">
+                    <input id="name" [(ngModel)]="userName" type="text" size="30" pInputText required>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+
+    <div class="text-center">
+        <button pButton [disabled]="disableSave" label="Login" class="m-r-12" (click)="login()"></button>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+body .ui-tree {
+  border: 0;
+  border-radius: 0;
+  width: auto;
+
+  .ui-tree-container {
+    padding: 0;
+
+    .ui-treenode {
+      padding: 0;
+
+      .ui-treenode-content {
+        position: relative;
+        margin-bottom: 12px;
+
+        &:focus {
+          outline: none;
+        }
+
+        .ui-tree-toggler {
+          position: absolute;
+          width: 13px;
+          height: 13px;
+          top: 2px;
+        }
+
+        .ui-treenode-icon {
+          margin-left: 1px;
+        }
+
+        .ui-treenode-label {
+          padding: 0;
+          margin-left: 8px;
+
+          a {
+            color: $euPrimaryLight;
+            text-decoration: none;
+          }
+        }
+
+        .ui-treenode-children {
+          padding: 0 0 0 21px;
+        }
+      }
+    }
+  }
+}

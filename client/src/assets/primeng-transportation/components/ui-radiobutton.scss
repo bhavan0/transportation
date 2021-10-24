@@ -1,0 +1,60 @@
+body {
+  p-radiobutton {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 8px;
+    margin-right: 26px;
+
+    @media print {
+      display: none;
+    }
+
+    .ui-radiobutton {
+      width: 16px;
+      height: 16px;
+      margin-right: 10px;
+
+      .ui-radiobutton-box {
+        width: 16px;
+        height: 16px;
+
+        .ui-radiobutton-icon {
+          width: 8px;
+          height: 8px;
+          top: -1px;
+          bottom: auto;
+          left: -1px;
+          right: auto;
+          margin: 4px;
+          border-radius: 4px;
+        }
+      }
+      .ui-radiobutton-box.ui-state-active {
+        border-color: $euSecondary;
+        background-color: $euNeutral;
+        color: $euNeutral;
+
+        .ui-radiobutton-icon {
+          background-color: $euSecondary;
+        }
+      }
+      .ui-radiobutton-box.ui-state-active:not(.ui-state-disabled):hover {
+        border-color: $euSecondary;
+        background-color: $euNeutral;
+        color: $euNeutral;
+      }
+      .ui-radiobutton-box.ui-state-active.ui-state-focus {
+        border-color: $euSecondary;
+        background-color: $euNeutral;
+        color: $euNeutral;
+        -webkit-box-shadow: 0 0 0 0.2em rgba(238, 125, 17, 0.25);
+        box-shadow: 0 0 0 0.2em rgba(238, 125, 17, 0.25);
+      }
+    }
+    .ui-radiobutton-label {
+      font-size: $fontSize;
+      margin: auto 0;
+    }
+  }
+}

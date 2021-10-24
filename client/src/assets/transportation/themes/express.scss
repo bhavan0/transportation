@@ -1,0 +1,33 @@
+$euFontFamily: "Roboto", sans-serif !important;
+$euFontSize: 13px;
+$euBorderRadius: 3px;
+$euDisabledOpacity: 0.35;
+
+//Gray Shades
+$xtraLightestGray: rgba(0, 0, 0, 0.1);
+$lightestGray: rgba(0, 0, 0, 0.2);
+$lighterGray: rgba(0, 0, 0, 0.4);
+$lightGray: rgba(0, 0, 0, 0.6);
+$darkGray: rgba(0, 0, 0, 0.8);
+$darkestGray: rgba(0, 0, 0, 1);
+
+//Primary Color
+$euBlue: #003883;
+$euOrange: #EE7D11;
+$euLightOrange: #f7be88;
+$suBlue: #0072BC;
+$euWhite: #FFFFFF;
+$euTransparent: rgba(0,0,0,0);
+
+//Contextual Color
+$euSuccess: #28A745;
+$euWarning: #F5A710;
+$euError: #E42E07;
+
+//Theme Color
+$euPrimary: $euBlue;
+$euPrimaryLight: $suBlue;
+$euSecondary: $euOrange;
+$euSecondaryLight: $euLightOrange;
+$euTertiary: $darkGray;
+$euNeutral: $euWhite;

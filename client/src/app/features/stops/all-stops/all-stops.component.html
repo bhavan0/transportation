@@ -1,0 +1,33 @@
+<h1 class="page-title">Stops</h1>
+
+<p-table #busesTable [columns]="cols" [value]="stops" [paginator]="true" [rows]="10" selectionMode="single"
+    (onRowSelect)="onStopsSelection($event.data)" [totalRecords]="totalRecords">
+
+    <ng-template pTemplate="caption">
+        <div class="flex-body justify-content-between">
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="ei ei-magnifier"></i></span>
+                <input class="ui-inputtext" type="text" pInputText size="50" placeholder="Search"
+                    (input)="busesTable.filterGlobal($event.target.value, 'contains')" [(ngModel)]="searchText" />
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+                    ariaLabelDesc="Activate to sort in descending order"
+                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [pSelectableRow]="rowData">
+            <td *ngFor="let col of columns">
+                <span [innerHtml]="rowData[col.field] | highlight : [searchText]"></span>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

@@ -1,0 +1,96 @@
+<div class="summary">
+    <div class="summary-header">
+        <div class="header-left">
+            <span class="text">Stop Information</span>
+        </div>
+    </div>
+
+    <div class="summary-info">
+        <div class="p-grid no-padding no-margin">
+            <div class="p-col no-padding no-margin">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="form-label-div">
+                            <label class="form-label" for="Name">Stop Name</label>
+                        </div>
+                        <div class="form-label-div">
+                            <label class="form-label" for="Name">{{stop.name}}</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-label-div">
+                            <label class="form-label" for="Description">Description</label>
+                        </div>
+                        <div class="form-label-div">
+                            <label class="form-label" for="Description">{{stop.desc}}</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-label-div">
+                            <label class="form-label" for="Latitude">Latitude</label>
+                        </div>
+                        <div class="form-label-div">
+                            <label class="form-label" for="Latitude">{{stop.latitude}}</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-label-div">
+                            <label class="form-label" for="Longitude">Longitude</label>
+                        </div>
+                        <div class="form-label-div">
+                            <label class="form-label" for="Longitude">{{stop.longitude}}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+
+<p-table #busesTable [columns]="cols" [value]="busLocations" [paginator]="true" [rows]="10"
+    [(selection)]="selectedBuses">
+
+    <ng-template pTemplate="caption">
+        <div class="flex-body justify-content-between">
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="ei ei-magnifier"></i></span>
+                <input class="ui-inputtext" type="text" pInputText size="50" placeholder="Search"
+                    (input)="busesTable.filterGlobal($event.target.value, 'contains')" />
+            </div>
+            <button class="ui-button" pButton (click)="subscribeBuses()" type="button" icon="ei ei-plus" iconPos="left"
+                label="Subscribe Buses" [disabled]="noOfSelectedBus===0"></button>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th style="width: 3rem">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th *ngFor="let col of columns">
+                {{col.header}}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [pSelectableRow]="rowData">
+            <td>
+                <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+            </td>
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<p-toast position="top-center"></p-toast>
+<!-- <app-display-map [currentLocation]="currentLocation" [displayLocations]="busLocations"></app-display-map> -->

@@ -1,0 +1,161 @@
+body {
+  p-checkbox {
+    display: inline-block;
+    // margin: 0 8px 0 0;
+
+    .ui-chkbox {
+      width: 14px;
+      height: 14px;
+      margin-right: 12px;
+
+      @media print {
+        display: none;
+      }
+
+      .ui-chkbox-box {
+        width: 14px;
+        height: 14px;
+        padding: 0 2px;
+        display: -webkit-inline-box;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        vertical-align: top;
+        background-color: $euTransparent;
+        border-color: $lighterGray;
+        align-items: center;
+
+        .ui-chkbox-icon {
+          font-size: 7px;
+          font-weight: bold;
+          margin: auto;
+          line-height: 12px;
+        }
+      }
+
+      .ui-chkbox-box:not(.ui-state-disabled):hover {
+        border-color: rgba(0, 0, 0, 0.3);
+        background-color: $euTransparent;
+      }
+
+      .ui-chkbox-box.ui-state-active,
+      .ui-chkbox-box.ui-state-active.ui-state-focus {
+        border-color: $euSecondary;
+        background-color: $euSecondary;
+        color: $euNeutral;
+
+        &:hover {
+          border-color: $euSecondary;
+          background-color: $euSecondary;
+          color: $euNeutral;
+        }
+
+        .ui-chkbox-icon {
+          color: $euNeutral;
+          line-height: 12px;
+        }
+      }
+
+      .ui-chkbox-box.ui-state-active:not(.ui-state-disabled) {
+        &:hover {
+          border-color: $euSecondary;
+          background-color: $euSecondary;
+          color: $euNeutral;
+        }
+
+        .ui-chkbox-icon {
+          color: $euNeutral;
+          line-height: 12px;
+        }
+      }
+
+      .ui-chkbox-box.ui-state-focus {
+        box-shadow: none;
+      }
+    }
+
+    .ui-chkbox-label {
+      font-size: $fontSize;
+      vertical-align: bottom;
+      margin-bottom: 20px;
+    }
+  }
+
+  p-checkbox.no-checkbox-label {
+    margin: 0;
+
+    .ui-chkbox {
+      margin: 0;
+    }
+  }
+
+  .ui-chkbox {
+    width: 14px;
+    height: 14px;
+    margin: 0;
+
+    @media print {
+      display: none;
+    }
+
+    .ui-chkbox-box {
+      width: 14px;
+      height: 14px;
+      padding: 0 2px;
+      display: -webkit-inline-box;
+      display: -ms-inline-flexbox;
+      display: inline-flex;
+      vertical-align: top;
+      background-color: $euTransparent;
+      border-color: $lighterGray;
+      align-items: center;
+
+      .ui-chkbox-icon {
+        font-size: 7px;
+        font-weight: bold;
+        margin: auto;
+        line-height: 12px;
+      }
+    }
+
+    .ui-chkbox-box:not(.ui-state-disabled):hover {
+      border-color: rgba(0, 0, 0, 0.3);
+      background-color: $euTransparent;
+    }
+
+    .ui-chkbox-box.ui-state-active,
+    .ui-chkbox-box.ui-state-active.ui-state-focus {
+      border-color: $euSecondary;
+      background-color: $euSecondary;
+      color: $euNeutral;
+
+      &:hover {
+        border-color: $euSecondary;
+        background-color: $euSecondary;
+        color: $euNeutral;
+      }
+
+      .ui-chkbox-icon {
+        font-family: transportation-icon !important;
+        color: $euNeutral;
+        line-height: 12px;
+      }
+    }
+
+    .ui-chkbox-box.ui-state-active:not(.ui-state-disabled) {
+      &:hover {
+        border-color: $euSecondary;
+        background-color: $euSecondary;
+        color: $euNeutral;
+      }
+
+      .ui-chkbox-icon {
+        color: $euNeutral;
+        line-height: 12px;
+      }
+    }
+
+    .ui-chkbox-box.ui-state-focus {
+      box-shadow: none;
+    }
+  }
+}

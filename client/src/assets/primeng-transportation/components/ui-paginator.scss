@@ -1,0 +1,119 @@
+body {
+  .ui-paginator {
+    .pi {
+      font-family: "primeicons" !important;
+    }
+
+    border: 0;
+    height: 36px;
+    text-align: right;
+    position: relative;
+    margin: 15px 0px 10px 0px;
+    background-color: $euTransparent;
+
+    p-dropdown {
+      position: absolute;
+      top: 0;
+      left: 135px;
+      width: auto;
+
+      .ui-dropdown {
+        margin: 0;
+      }
+    }
+
+    .ui-paginator-element {
+      background-color: $euWhite;
+      border: $contentBorderWidth $contentBorderStyle $contentBorderColor;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      border-radius: $euBorderRadius;
+      padding: 8px;
+      width: 36px;
+      height: 36px;
+      display: inline-block;
+      margin-right: 8px;
+
+      &:last-child {
+        margin: 0;
+      }
+
+      &.ui-state-disabled {
+        opacity: 0.5;
+      }
+
+      .ui-paginator-icon {
+        font-size: 16px;
+        border: 0;
+        position: relative;
+        margin: auto;
+        top: 0;
+        left: 0;
+      }
+    }
+
+    .ui-paginator-last.ui-paginator-element {
+      margin: 0;
+    }
+
+    .ui-paginator-pages .ui-paginator-element {
+      display: none;
+    }
+
+    .ui-paginator-pages .ui-input-current-page {
+      width: 70px;
+      margin-right: 8px;
+    }
+
+    .ui-paginator-pages {
+      height: 36px;
+
+      .ui-paginator-element {
+        margin-right: 8px;
+      }
+    }
+
+    .ui-dropdown-custom {
+      width: auto;
+      position: absolute;
+      left: 42px;
+      top: 0;
+    }
+
+    .ui-dropdown-left-span {
+      position: absolute;
+      top: 10px;
+      left: 0;
+      width: max-content;
+      display: block;
+      text-align: left;
+      -webkit-box-align: center;
+      align-items: center;
+      margin: auto 8px auto 0;
+    }
+
+    .ui-dropdown-right-span {
+      position: absolute;
+      top: 10px;
+      left: 120px;
+      width: max-content;
+      display: block;
+      text-align: left;
+      -webkit-box-align: center;
+      align-items: center;
+      margin: auto 8px auto 0;
+    }
+
+    .ui-dropdown-row-range {
+      position: absolute;
+      top: 10px;
+      left: 0;
+    }
+
+    .ui-input-current-page-container {
+      display: block;
+      margin-left: 8px;
+      margin-right: 16px;
+    }
+  }
+}

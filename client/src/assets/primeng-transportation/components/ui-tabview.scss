@@ -1,0 +1,226 @@
+body {
+  .ui-tabview.ui-tabview-top {
+    padding: 0;
+    border: 0;
+    background: $euTransparent;
+
+    .ui-tabview-panels {
+      border: 0;
+      padding: 12px 0 0 0;
+
+      .ui-tabview-panel {
+        padding: 0;
+      }
+    }
+
+    .ui-tabview-nav {
+      padding: 0;
+      border-width: 0 0 1px 0;
+      border-style: solid;
+      border-color: $xtraLightestGray;
+      background: $euTransparent;
+
+      li {
+        border-width: 0 0 1px 0;
+        border-style: solid;
+        border-color: $euTransparent;
+        color: $lightGray;
+        margin: 0;
+        margin-right: 24px;
+        margin-bottom: 1px;
+        background: $euTransparent;
+        outline: none;
+
+        a {
+          color: $lightGray;
+          font-weight: 500;
+          padding: 16px;
+          outline: none;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+
+      li:not(.ui-state-active):not(.ui-state-disabled):hover {
+        border-width: 0 0 1px 0;
+        border-color: $euTransparent;
+        color: $lightGray;
+        margin: 0;
+        margin-right: 24px;
+        margin-bottom: 1px;
+        background: $euTransparent;
+
+        a {
+          color: $lightGray;
+          font-weight: 500;
+          padding: 16px;
+        }
+      }
+
+      li:not(.ui-state-active):not(.ui-state-disabled):focus {
+        outline: none;
+      }
+
+      li.ui-state-active {
+        border-width: 0 0 2px 0;
+        border-color: $euSecondary;
+        color: $euSecondary;
+        margin: 0;
+        margin-right: 24px;
+        background: $euTransparent;
+
+        a {
+          color: $euSecondary;
+        }
+
+        &:hover {
+          border-width: 0 0 2px 0;
+          border-color: $euSecondary;
+          color: $euSecondary;
+          margin: 0;
+          margin-right: 24px;
+          background: $euTransparent;
+
+          a {
+            color: $euSecondary;
+          }
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+  .ui-tabview.ui-tabview-left {
+    padding: 0;
+    border: 0;
+    background: $euTransparent;
+    height: 100%;
+
+    &::after {
+      display: none;
+    }
+
+    .ui-tabview-panels {
+      border: 0;
+      padding: 24px;
+      background: $euWhite;
+
+      .ui-tabview-panel {
+        padding: 0;
+      }
+    }
+
+    .ui-tabview-nav {
+      padding: 0;
+      border-width: 0;
+      border-style: solid;
+      border-color: $xtraLightestGray;
+      background: $euTransparent;
+      height: auto;
+      margin: 0 0 0 -2px;
+      width: calc(25% + 2px);
+
+      li {
+        border-width: 0 0 0 2px;
+        border-radius: 0;
+        border-style: solid;
+        border-color: $euTransparent;
+        color: $lightGray;
+        margin: 0;
+        margin-right: 1px;
+        background: $euTransparent;
+        outline: none;
+
+        > a {
+          color: $lightGray;
+          font-weight: 500;
+          padding: 16px;
+          outline: none;
+          a {
+            padding: 0;
+          }
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+
+      li:not(.ui-state-active):not(.ui-state-disabled):hover {
+        border-width: 0 0 0 2px;
+        border-radius: 0;
+        border-color: $euTransparent;
+        color: $lightGray;
+        margin: 0;
+        margin-right: 1px;
+        background: $euTransparent;
+
+        > a {
+          color: $lightGray;
+          font-weight: 500;
+          padding: 16px;
+          a {
+            padding: 0;
+          }
+        }
+      }
+
+      li:not(.ui-state-active):not(.ui-state-disabled):focus {
+        outline: none;
+      }
+
+      li.ui-state-active {
+        border-width: 0 0 0 2px;
+        border-radius: 0;
+        border-color: $euSecondary;
+        color: $euSecondary;
+        margin: 0;
+        background: $euWhite;
+
+        > a {
+          color: $euSecondary;
+          a {
+            padding: 0;
+          }
+        }
+
+        &:hover {
+          border-width: 0 0 0 2px;
+          border-radius: 0;
+          border-color: $euSecondary;
+          color: $euSecondary;
+          margin: 0;
+          background: $euWhite;
+
+          > a {
+            color: $euSecondary;
+            a {
+              padding: 0;
+            }
+          }
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+
+      li.ui-state-disabled {
+        background: $euTransparent;
+        opacity: 1;
+        a {
+          color: #0072bc;
+        }
+        &:hover {
+          a {
+            color: #0072bc;
+          }
+        }
+      }
+    }
+  }
+}

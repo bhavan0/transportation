@@ -1,0 +1,170 @@
+body {
+  p-calendar {
+    width: 100%;
+
+    .ui-calendar.ui-calendar-w-btn {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+
+      @media print {
+        display: none;
+      }
+
+      input.ui-inputtext {
+        background: $euNeutral;
+        border: $contentBorderWidth $contentBorderStyle $contentBorderColor;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        border-radius: $borderRadius;
+        padding: 9px 10px;
+        font-size: $fontSize;
+        width: 100%;
+
+        &:hover,
+        &:enabled:hover:not(.ui-state-error) {
+          border-color: $lighterGray;
+        }
+
+        &:focus,
+        &:enabled:focus:not(.ui-state-error) {
+          -webkit-box-shadow: none;
+          box-shadow: none;
+          outline: 0;
+          border-color: rgba(0, 81, 229, 0.6);
+          border-width: 2px;
+        }
+
+        &::-webkit-input-placeholder {
+          color: $lighterGray;
+          font-size: $fontSize;
+        }
+      }
+
+      .ui-datepicker-trigger.ui-calendar-button {
+        position: absolute;
+        right: 0;
+        background: $euTransparent;
+        border-color: $euTransparent;
+        color: $lighterGray;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+
+        &:focus {
+          outline: none;
+          -webkit-box-shadow: none;
+          box-shadow: none;
+        }
+      }
+    }
+
+    .ui-calendar.ui-calendar-timeonly {
+      .ui-datepicker {
+        .ui-timepicker {
+          border: none;
+        }
+      }
+    }
+  }
+
+  p-calendar.ng-dirty.ng-invalid {
+    .ui-calendar {
+      .ui-inputtext {
+        border-color: rgba(0, 0, 0, 0.3);
+      }
+    }
+  }
+
+  p-calendar.ng-invalid.has-error {
+    .ui-calendar {
+      .ui-inputtext {
+        border-color: rgb(216, 12, 12);
+        color: rgb(230, 14, 14);
+        border: 1px solid red !important;
+      }
+    }
+  }
+
+  .ui-calendar {
+    width: 100%;
+
+    .ui-datepicker {
+      margin-top: 1px;
+      .ui-datepicker-header {
+        border: 0;
+        a {
+          cursor: pointer;
+        }
+      }
+
+      .ui-datepicker-calendar-container {
+        a {
+          cursor: pointer;
+        }
+
+        .ui-datepicker-today {
+          .ui-state-highlight {
+            background-color: rgba(0, 114, 188, 0.1);
+          }
+        }
+
+        .ui-datepicker-current-day {
+          .ui-state-active {
+            background-color: rgba(238, 125, 17, 0.1);
+          }
+        }
+      }
+    }
+  }
+
+  .ui-datepicker {
+    .ui-datepicker-header {
+      border: 0;
+      a {
+        cursor: pointer;
+      }
+    }
+    .ui-datepicker-calendar-container {
+      a {
+        cursor: pointer;
+      }
+    }
+    .ui-timepicker {
+      border: none;
+    }
+  }
+
+  p-calendar.ui-calendar-minimal {
+    .ui-calendar.ui-calendar-w-btn {
+      width: 152px;
+      input.ui-inputtext {
+        border-radius: 0;
+        border-width: 0;
+        padding: 4px;
+        height: 100%;
+        min-height: 100%;
+        min-width: 100px;
+        background: rgba(0, 0, 0, 0);
+        &:focus,
+        &:enabled:focus:not(.ui-state-error) {
+          border-width: 0;
+        }
+      }
+
+      .ui-datepicker-trigger.ui-calendar-button {
+        padding: 0;
+        height: 100%;
+        min-height: 100%;
+        bottom: 2px;
+      }
+    }
+  }
+
+  p-calendar.ui-calendar-minimal.has-error {
+    .ui-calendar.ui-calendar-w-btn {
+      input.ui-inputtext {
+        border: 1px solid #e42e07 !important;
+      }
+    }
+  }
+}

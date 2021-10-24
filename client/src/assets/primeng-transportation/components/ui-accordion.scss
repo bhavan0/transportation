@@ -1,0 +1,117 @@
+body {
+  .ui-accordion {
+    margin-bottom: 12px;
+    padding: 0;
+    border: 1px solid $xtraLightestGray;
+    background-color: #FFFFFF;
+
+    @media print {
+      margin-bottom: 0;
+    }
+
+    .ui-accordion-header,
+    .ui-accordion-header:not(.ui-state-disabled).ui-state-active,
+    .ui-accordion-header:not(.ui-state-disabled).ui-state-active:hover,
+    .ui-accordion-header:not(.ui-state-active):not(.ui-state-disabled):hover {
+      margin: 0;
+      background: $headerBgColor;
+      border: 0;
+      cursor: default;
+
+      a {
+        background: $euNeutral;
+        border: 0;
+        color: $headerTextColor;
+        font-size: 18px;
+        font-weight: 400;
+        padding: 24px 24px 24px 56px;
+        position: relative;
+        pointer-events: none;
+
+        @media print {
+          padding: 24px 24px 24px 36px;
+        }
+
+        &:focus {
+          outline: none;
+        }
+
+        .ui-accordion-toggle-icon {
+          // color: $headerIconTextColor;
+          // font-size: $headerFontSize;
+          // font-weight: $headerFontWeight;
+
+          position: absolute;
+          left: 24px;
+          top: 24px;
+          border: 0;
+          background-color: $euTransparent;
+          margin: 0;
+          pointer-events: visible;
+          cursor: pointer;
+
+          &:hover {
+            background-color: $euTransparent;
+          }
+
+          span {
+            font-size: 18px;
+          }
+        }
+      }
+
+      .ui-panel-title {
+        vertical-align: unset;
+        font-weight: 400;
+        margin-right: 12px;
+        font-size: 18px;
+        line-height: 21px;
+        cursor: text;
+
+        @media print {
+          font-size: 24px;
+        }
+
+        a {
+          i.ei {
+            font-size: 16px;
+          }
+        }
+      }
+
+      .panel-header-right {
+        .panel-header-right-content {
+          float: right;
+        }
+      }
+    }
+
+    .ui-accordion-content-wrapper {
+      border: 0;
+
+      .ui-accordion-content {
+        background: $euNeutral;
+        border: 0;
+        color: $contentTextColor;
+        font-size: $fontSize;
+        font-weight: 400;
+        padding: 0 24px 24px 56px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+
+        @media print {
+          padding: 24px 24px 24px 36px;
+        }
+      }
+    }
+  }
+
+  .ui-accordion-no-header {
+    .ui-accordion {
+      .ui-accordion-header {
+        display: none;
+      }
+    }
+  }
+}

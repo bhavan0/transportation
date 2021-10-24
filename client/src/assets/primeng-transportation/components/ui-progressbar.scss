@@ -1,0 +1,18 @@
+body {
+  .ui-progressbar {
+    height: 16px;
+    border: 1px solid $contentBorderColor;
+    margin-bottom: 12px;
+
+    .ui-progressbar-value {
+      background-color: $euSecondary;
+    }
+
+    .ui-progressbar-label {
+      color: $euWhite;
+      -webkit-transition: width 1s; /* For Safari 3.1 to 6.0 */
+      -o-transition: width 1s;
+      transition: width 1s;
+    }
+  }
+}

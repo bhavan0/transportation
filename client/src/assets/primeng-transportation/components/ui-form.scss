@@ -1,0 +1,225 @@
+.form-vertical {
+  .form-group {
+    margin-bottom: 24px;
+    padding: 0;
+    padding-right: 24px;
+
+    &:nth-child(4n -1) {
+      padding-right: 0;
+    }
+
+    &:nth-child(4n) {
+      padding: 0;
+      padding-left: 24px;
+    }
+
+    .form-label-div {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      width: 100%;
+      margin-bottom: 8px;
+
+      .form-label {
+        font-size: $fontSize;
+        line-height: 15px;
+        color: $lightGray;
+
+        @media print {
+          font-size: 13px;
+          color: $lightGray;
+        }
+      }
+    }
+
+    .form-input-div {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      position: relative;
+      width: 100%;
+      line-height: 12px;
+      flex-direction: column;
+
+      @media print {
+        margin: 0;
+        padding-bottom: 0;
+      }
+      span {
+        @media print {
+          font-size: 13px;
+          color: $contentTextColor;
+        }
+      }
+    }
+  }
+}
+
+.form-horizontal {
+  .form-group {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 24px;
+
+    &:last-child,
+    &:empty,
+    .form-group-last {
+      margin-bottom: 0;
+    }
+
+    .form-label-div {
+      display: -webkit-inline-box;
+      display: -ms-inline-flexbox;
+      display: inline-flex;
+      margin-right: 24px;
+      margin-bottom: 0;
+      width: 180px;
+
+      .form-label {
+        margin: auto 0;
+        font-size: $fontSize;
+        line-height: 15px;
+        color: $lightGray;
+        align-self: center;
+
+        @media print {
+          font-size: 13px;
+          color: $lightGray;
+        }
+      }
+
+      .form-label.top {
+        margin: 0 0 auto 0;
+      }
+    }
+
+    .form-input-div {
+      display: -webkit-inline-box;
+      display: -ms-inline-flexbox;
+      display: inline-flex;
+      position: relative;
+      width: 360px;
+      line-height: 12px;
+      flex-direction: column;
+
+      @media print {
+        margin: 0;
+        padding-bottom: 0;
+      }
+      span {
+        @media print {
+          font-size: 13px;
+          color: $contentTextColor;
+        }
+      }
+
+      .form-actions {
+        display: inline-flex;
+        position: absolute;
+        left: calc(100% + 16px);
+        top: 8px;
+        a {
+          cursor: pointer;
+          font-size: 18px;
+        }
+      }
+    }
+  }
+  .form-divider {
+    border-width: 1px 0 0 0;
+    border-style: $contentBorderStyle;
+    border-color: $contentBorderColor;
+    margin-bottom: 24px;
+  }
+}
+
+.form-horizontal.form-width-dynamic {
+  .form-group {
+    .form-label-div {
+      width: 120px;
+      align-items: center;
+    }
+
+    .form-input-div {
+      -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+      flex-grow: 1;
+      width: 100%;
+    }
+  }
+}
+
+.form-vertical {
+  .form-group {
+    margin-bottom: 24px;
+    padding: 0;
+    padding-right: 24px;
+
+    &:nth-child(4n -1) {
+      padding-right: 0;
+    }
+
+    &:nth-child(4n) {
+      padding: 0;
+      padding-left: 24px;
+    }
+
+    .form-label-div {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      width: 100%;
+      margin-bottom: 8px;
+
+      .form-label {
+        font-size: $fontSize;
+        line-height: 15px;
+        color: $lightGray;
+
+        @media print {
+          font-size: 13px;
+          color: $lightGray;
+        }
+      }
+    }
+
+    .form-input-div {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      position: relative;
+      width: 100%;
+      line-height: 12px;
+
+      @media print {
+        margin: 0;
+        padding-bottom: 0;
+      }
+      span {
+        @media print {
+          font-size: 13px;
+          color: $contentTextColor;
+        }
+      }
+    }
+  }
+}
+
+.form-horizontal.form-compressed {
+  .form-group {
+    margin-bottom: 12px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .form-label-div {
+      width: 120px;
+    }
+
+    .form-input-div {
+      width: 420px;
+    }
+  }
+}

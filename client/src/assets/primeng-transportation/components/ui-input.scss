@@ -1,0 +1,198 @@
+body {
+  textarea,
+  input.ui-inputtext,
+  input {
+    background: $euNeutral;
+    border: $contentBorderWidth $contentBorderStyle $contentBorderColor;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border-radius: $borderRadius;
+    padding: 10px 12px;
+    font-size: $fontSize;
+    width: 100%;
+    min-height: 36px;
+
+    &:-ms-input-placeholder {
+      color: $lighterGray;
+    }
+
+    &:hover,
+    &:enabled:hover:not(.ui-state-error),
+    &.ng-dirty.ng-invalid {
+      border-color: rgba(0, 0, 0, 0.3);
+
+      &:-ms-input-placeholder {
+        color: $lighterGray;
+      }
+    }
+
+    &.ng-invalid.has-error {
+      border-color: rgb(216, 12, 12);
+      color: rgb(230, 14, 14);
+
+      &:hover,
+      &:focus,
+      &:focus:not(.ui-state-error) {
+        border-color: rgb(216, 12, 12);
+        color: rgb(230, 14, 14);
+      }
+
+      &:-ms-input-placeholder {
+        color: $lighterGray;
+      }
+    }
+    &:focus,
+    &:enabled:focus:not(.ui-state-error) {
+      -webkit-box-shadow: none;
+      box-shadow: none;
+      outline: 0;
+      border-color: rgba(0, 81, 229, 0.6);
+      border-width: 2px;
+    }
+
+    @media print {
+      display: none;
+    }
+
+    &::-webkit-input-placeholder {
+      font-family: $fontFamily;
+      color: $lighterGray;
+      font-size: $fontSize;
+    }
+  }
+
+  input.ui-inputtext[type="text"].focus,
+  input.focus {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    outline: 0;
+    border-color: rgba(0, 81, 229, 0.6);
+    border-width: 2px;
+  }
+
+  input.ui-inputtext[type="text"].invalid-input,
+  input.invalid-input {
+    border-color: $euError;
+    outline: none;
+    -webkit-box-shadow: 0;
+    box-shadow: 0;
+
+    &:hover,
+    &:enabled:hover:not(.ui-state-error) {
+      border-color: $euError;
+    }
+
+    &:focus,
+    &:enabled:focus:not(.ui-state-error) {
+      border-color: $euError;
+    }
+  }
+
+  input.ui-inputtext[type="text"],
+  input {
+    height: 36px;
+  }
+
+  input.ui-inputtext[type="number"] {
+    width: 80px;
+    height: 36px;
+  }
+
+  input.ui-inputtext.ui-inputlarge {
+    width: 108px;
+    height: 48px;
+  }
+
+  textarea.ui-inputtext,
+  textarea {
+    height: 72px;
+    resize: none;
+    padding: 10px 12px;
+    border: $contentBorderWidth $contentBorderStyle $contentBorderColor;
+  }
+
+  textarea.ui-inputtext.fixed-height {
+    height: 36px;
+    overflow: hidden;
+  }
+
+  .ui-inputgroup {
+    position: relative;
+    width: 480px;
+
+    .ui-inputgroup-addon:first-child {
+      background: none !important;
+      color: $lightGray;
+      border: none;
+      position: absolute;
+      top: 10px;
+      left: 12px;
+      padding: 0;
+      min-width: auto;
+      font-size: 16px;
+    }
+
+    input:not(:first-child),
+    .ui-inputtext:not(:first-child) {
+      padding: 10px 12px 10px 34px;
+      border: $contentBorderWidth $contentBorderStyle $contentBorderColor;
+      border-radius: $borderRadius;
+    }
+  }
+
+  .ui-inputgroup.icon-right {
+    .ui-inputgroup-addon:first-child {
+      left: auto;
+      right: 12px;
+    }
+
+    input:not(:first-child),
+    .ui-inputtext:not(:first-child) {
+      padding: 10px 34px 10px 12px;
+    }
+  }
+
+  input.ui-inputtext.ui-inputtext-minimal,
+  input.ui-inputtext-minimal,
+  textarea.ui-inputtext.ui-inputtext-minimal,
+  textarea.ui-inputtext-minimal {
+    border-radius: 0;
+    border-width: 0;
+    padding: 4px 4px 4px 0;
+    height: 100%;
+    min-height: 100%;
+    background: rgba(0, 0, 0, 0);
+
+    &:focus,
+    &:enabled:focus:not(.ui-state-error) {
+      border-width: 0;
+    }
+  }
+
+  textarea.ui-inputtext.ui-inputtext-minimal,
+  textarea.ui-inputtext-minimal {
+    height: 24px;
+  }
+
+  .ui-inputtext-minimal.has-error {
+    border: 1px solid #e42e07 !important;
+  }
+
+  // .ui-inputgroup .ui-inputtext:not(:last-child) {
+  //   border-right: $contentBorderWidth $contentBorderStyle $contentBorderColor;
+  // }
+
+  .ui-input-number {
+    position: relative;
+    .ei.ei-caret-up,
+    .ei.ei-caret-down {
+      position: absolute;
+      right: 12px;
+      top: 24%;
+      cursor: pointer;
+    }
+    .ei.ei-caret-down {
+      top: 48%;
+    }
+  }
+}

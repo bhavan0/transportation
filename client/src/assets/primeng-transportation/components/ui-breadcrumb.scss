@@ -1,0 +1,93 @@
+p-breadcrumb {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 99;
+
+  @media print {
+    display: none;
+  }
+
+  .ui-breadcrumb {
+    border: 0;
+    border-radius: 0;
+    background-color: #F4F4F6;
+    -webkit-transition: padding 0.2s; /* For Safari 3.1 to 6.0 */
+    -o-transition: padding 0.2s;
+    transition: padding 0.2s;
+
+    .ui-breadcrumb-chevron::before {
+      color: rgba(0, 0, 0, 0.4);
+      content: "/";
+    }
+
+    ul {
+      li {
+        margin: 0 4px;
+      }
+
+      li[role="menuitem"] {
+        margin: 0 4px;
+
+        a {
+          color: $euPrimaryLight;
+        }
+
+        &:first-child {
+          margin-left: 0;
+        }
+
+        &:last-child {
+          a {
+            color: $darkGray;
+          }
+        }
+      }
+
+      li[role="menuitem"].single {
+        a {
+          color: $euPrimaryLight;
+        }
+      }
+    }
+  }
+}
+
+p-breadcrumb.single {
+  .ui-breadcrumb {
+    li[role="menuitem"] {
+      a {
+        color: $euPrimaryLight;
+      }
+    }
+  }
+}
+
+.layout-nav-top {
+  p-breadcrumb {
+    position: relative;
+    .ui-breadcrumb {
+      padding: 164px 0 4px 0;
+    }
+  }
+
+  page-header + p-breadcrumb {
+    .ui-breadcrumb {
+      padding: 64px 0 12px 0;
+    }
+  }
+}
+
+.layout-nav-left {
+  p-breadcrumb {
+    position: relative;
+    .ui-breadcrumb {
+      padding: 76px 0 16px 60px;
+    }
+  }
+}
+
+.layout-nav-left.layout-compress .app-header:hover ~ p-breadcrumb .ui-breadcrumb {
+  padding: 76px 0 16px 240px;
+}

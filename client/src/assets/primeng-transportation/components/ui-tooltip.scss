@@ -1,0 +1,125 @@
+body {
+  .ui-tooltip {
+    .ui-tooltip-text {
+      padding: 8px;
+    }
+  }
+
+  .ui-tooltip-custom {
+    position: relative;
+    display: inline-block;
+  }
+
+  .ui-tooltip-custom .ui-tooltip-content {
+    visibility: hidden;
+    padding: 16px;
+    color: rgba(0, 0, 0, 0.8);
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+    position: absolute;
+    font-weight: 400;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .ui-tooltip-custom .ui-tooltip-content::after {
+    content: "";
+    position: absolute;
+    border-width: 8px;
+    border-style: solid;
+  }
+
+  .ui-tooltip-custom .ui-tooltip-content::before {
+    content: "";
+    position: absolute;
+    border-width: 10px;
+    border-style: solid;
+  }
+
+  .ui-tooltip-custom:hover .ui-tooltip-content {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .ui-tooltip-custom.ui-tooltip-bottom .ui-tooltip-content {
+    top: 150%;
+    left: 50%;
+    margin-left: -180px;
+  }
+
+  .ui-tooltip-custom.ui-tooltip-bottom .ui-tooltip-content::after {
+    bottom: 100%;
+    left: 50%;
+    margin-left: -8px;
+    border-color: transparent transparent #ffffff transparent;
+  }
+
+  .ui-tooltip-custom.ui-tooltip-bottom .ui-tooltip-content::before {
+    bottom: 100%;
+    left: 50%;
+    margin-left: -10px;
+    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  }
+
+  .ui-tooltip-custom.ui-tooltip-top .ui-tooltip-content {
+    bottom: 150%;
+    left: 50%;
+    margin-left: -180px;
+  }
+
+  .ui-tooltip-custom.ui-tooltip-top .ui-tooltip-content::after {
+    top: 100%;
+    left: 50%;
+    margin-left: -8px;
+    border-color: #ffffff transparent transparent transparent;
+  }
+
+  .ui-tooltip-custom.ui-tooltip-top .ui-tooltip-content::before {
+    top: 100%;
+    left: 50%;
+    margin-left: -10px;
+    border-color: rgba(0, 0, 0, 0.1) transparent transparent transparent;
+  }
+
+  .ui-tooltip-custom.ui-tooltip-left .ui-tooltip-content {
+    top: -8px;
+    right: 120%;
+  }
+
+  .ui-tooltip-custom.ui-tooltip-left .ui-tooltip-content::after {
+    top: 24px;
+    left: 100%;
+    margin-top: -8px;
+    border-color: transparent transparent transparent #ffffff;
+  }
+
+  .ui-tooltip-custom.ui-tooltip-left .ui-tooltip-content::before {
+    top: 24px;
+    left: 100%;
+    margin-top: -10px;
+    border-color: transparent transparent transparent rgba(0, 0, 0, 0.1);
+  }
+
+  .ui-tooltip-custom.ui-tooltip-right .ui-tooltip-content {
+    top: -16px;
+    left: 164%;
+  }
+
+  .ui-tooltip-custom.ui-tooltip-right .ui-tooltip-content::after {
+    top: 24px;
+    right: 100%;
+    margin-top: -8px;
+    border-color: transparent #ffffff transparent transparent;
+  }
+
+  .ui-tooltip-custom.ui-tooltip-right .ui-tooltip-content::before {
+    top: 24px;
+    right: 100%;
+    margin-top: -10px;
+    border-color: transparent rgba(0, 0, 0, 0.1) transparent transparent;
+  }
+}

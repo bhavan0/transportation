@@ -1,0 +1,94 @@
+body {
+  .ui-steps, .ui-steps.ui-steps-readonly {
+    display: flex;
+    position: relative;
+
+    
+
+    ul[role="tablist"] {
+      display: flex;
+      flex-grow: 1;
+
+      .ui-steps-item {
+        background: rgba(0, 0, 0, 0);
+        border: 0;
+        flex-grow: 1;
+        position: relative;
+
+        &:before {
+          content: " ";
+          border-top: 1px solid #E5E5E5;
+          width: 100%;
+          top: 36%;
+          left: 0;
+          display: block;
+          position: absolute;
+        }
+
+        &:first-child::before {
+          width: 50%;
+          left: 50%;
+        }
+
+        &:last-child::before {
+          width: 50%;
+          left: 0;
+          right: 50%;
+        }
+
+        .ui-menuitem-link {
+          padding: 0 12px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          .ui-steps-number {
+            font-size: 16px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            border-radius: 36px;
+            border-width: 0px;
+            padding: 0 13px;
+          }
+        }
+      }
+      .ui-steps-item, .ui-steps-item:hover, .ui-steps-item.ui-state-disabled,
+      .ui-steps-item:not(.ui-state-highlight):not(.ui-state-disabled):hover {
+        opacity: 1;
+        background-color: $euTransparent;
+        cursor: default;
+        .ui-menuitem-link {
+          pointer-events: none;
+          cursor: default;
+          .ui-steps-number {
+            background-color: rgba(0, 0, 0, 0.4);
+            color: #ffffff;
+          }
+        }
+      }
+      .ui-steps-item.ui-state-highlight,
+      .ui-steps-item.ui-state-highlight:not(.ui-state-disabled):hover {
+        .ui-menuitem-link {
+          pointer-events: auto;
+          cursor: pointer;
+          .ui-steps-number {
+            background-color: #F5A710;
+            color: #ffffff;
+          }
+        }
+      }
+      .ui-steps-item.ui-state-complete,
+      .ui-steps-item.ui-state-complete:not(.ui-state-disabled):hover {
+        .ui-menuitem-link {
+          pointer-events: auto;
+          cursor: pointer;
+          .ui-steps-number {
+            background-color: #28A745;
+            color: #ffffff;
+          }
+        }
+      }
+    }
+  }
+}

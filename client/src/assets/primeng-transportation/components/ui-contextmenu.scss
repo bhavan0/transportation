@@ -1,0 +1,31 @@
+.ui-contextmenu {
+  padding: 0 !important;
+
+  .ui-menu-list {
+    .ui-menuitem {
+      .ui-menuitem-link {
+        height: 36px;
+        padding: 0 16px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        text-decoration: none;
+
+        .ui-menuitem-icon {
+          font-size: 16px;
+          margin-right: 12px;
+          color: rgba(0, 0, 0, 0.6);
+        }
+      }
+    }
+
+    .ui-menuitem.ui-menuitem-active {
+      .ui-menuitem-link {
+        background-color: #edf4f8;
+      }
+    }
+  }
+}

@@ -1,0 +1,45 @@
+<h1 class="page-title">Buses</h1>
+
+<p-table #busesTable [columns]="cols" [value]="buses" [paginator]="true" [rows]="10" selectionMode="single"
+    (onRowSelect)="onEditBus($event.data)">
+
+    <ng-template pTemplate="caption">
+        <div class="flex-body justify-content-between">
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="ei ei-magnifier"></i></span>
+                <input class="ui-inputtext" type="text" pInputText size="50" placeholder="Search"
+                    (input)="busesTable.filterGlobal($event.target.value, 'contains')" />
+            </div>
+            <button class="ui-button" pButton (click)="onAddBus()" type="button" icon="ei ei-plus" iconPos="left"
+                label="Add Bus"></button>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns">
+                {{col.header}}
+            </th>
+            <th style="width:45px"></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [pSelectableRow]="rowData">
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+            <td>
+                <a (click)="onEditBus(rowData)" class="div-inline no-text-decoration pointer">
+                    <i class="ei ei-pencil ei-16"></i>
+                </a>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<p-toast position="top-center" class="mt-80"></p-toast>
+
+<!-- <app-display-map [latitude]="latitude" [longitude]="longitude"></app-display-map> -->
+
+<button class="ui-button" pButton (click)="updateLocation()" type="button" icon="ei ei-plus" iconPos="left"
+    label="Update location"></button>

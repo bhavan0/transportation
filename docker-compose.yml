@@ -1,0 +1,110 @@
+version: "3.9"
+services:
+    redis:
+        image: redis
+        container_name: redis
+        ports:
+            - 6379:6379
+        command:
+            redis-server
+        networks:
+            - webnet
+    mongodb:
+        image: mongo:5.0
+        ports:
+            - '27017:27017'
+        networks:
+            - webnet
+    app-db:
+        build: ./db/
+        image: bhavan/transportation-db
+        container_name: database
+        ports:
+            - 5003:5003
+        links:
+            - mongodb
+        networks:
+            - webnet
+    app-backend:
+        build: ./backend/
+        image: bhavan/transportation-backend
+        container_name: backend
+        restart: always
+        ports:
+            - 5000:5000
+        links:
+            - mongodb
+        networks:
+            - webnet
+    app-mediator:
+        build: ./mediator/
+        image: bhavan/transportation-mediator
+        container_name: mediator
+        restart: always
+        ports:
+            - 7000:7000
+        depends_on:
+            - redis
+        environment:
+            - redis-host=redis
+        networks:
+            - webnet
+    app-publisher1:
+        build: ./publisher1/
+        image: bhavan/transportation-publisher1
+        container_name: publisher1
+        restart: always
+        ports:
+            - 6001:6001
+        links:
+            - mongodb
+        networks:
+            - webnet
+    app-publisher2:
+        build: ./publisher2/
+        image: bhavan/transportation-publisher2
+        container_name: publisher2
+        restart: always
+        ports:
+            - 6002:6002
+        links:
+            - mongodb
+        networks:
+            - webnet
+    app-publisher3:
+        build: ./publisher3/
+        image: bhavan/transportation-publisher3
+        container_name: publisher3
+        restart: always
+        ports:
+            - 6003:6003
+        links:
+            - mongodb
+        networks:
+            - webnet
+    app-subscriber:
+        build: ./subscriber/
+        image: bhavan/transportation-subscriber
+        container_name: subscriber
+        restart: always
+        ports:
+            - 9000:9000
+        depends_on:
+            - redis
+        environment:
+            - redis-host=redis
+        networks:
+            - webnet
+    app-frontend:
+        build: ./client/
+        image: bhavan/transportation-client
+        container_name: frontend
+        restart: always
+        ports:
+            - 8080:8080
+        expose:
+            - "8080"
+
+networks:
+    webnet:
+        driver: bridge

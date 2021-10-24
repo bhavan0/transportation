@@ -1,0 +1,6 @@
+<google-map height="400px" width="750px" [center]="center">
+    <map-circle [center]="center" [radius]="30"></map-circle>
+    <map-marker #markerElem *ngFor="let marker of markers" [position]="marker.position" [label]="marker.label"
+        [title]="marker.title" [options]="markerOptions" (mapClick)="openInfo(marker.label)">
+    </map-marker>
+</google-map>
