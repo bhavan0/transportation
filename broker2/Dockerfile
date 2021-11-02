@@ -12,9 +12,9 @@ ADD . /app
 RUN pip3 install -r requirements.txt
 
 # Expose port and run the python api server
-EXPOSE 7000
-CMD [ "python3", "transportation-mediator.py"]
+EXPOSE 7002
+CMD [ "python3", "transportation-broker2.py"]
 
 # Steps to create image and deploy container in docker
 # docker build -t [image-name] .
-# docker run -p 7000:7000 [image-name]
+# docker run -p 7002:7002 [image-name]

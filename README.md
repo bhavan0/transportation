@@ -114,14 +114,16 @@ It deploys the following components
 | :------------: | :---: | :----------------------------------------------------------------------------------------------------------------: |
 |     redis      | 6379  |                               Used for communication between broker and subscriber.                                |
 |    mongodb     | 27017 |                                            Used for saving Data in DB.                                             |
-|     app-db     | 5003  |                                        Used to inject base data into the DB                                        |
-|  app-backend   | 5000  |                                The service used by the client to fetch information.                                |
-|  app-mediator  | 7000  | It acts as a broker to save data published by the publisher to the DB and sends it to respective subscriber Queue. |
-| app-publisher1 | 6001  |                                      It publishes first few records of buses.                                      |
-| app-publisher2 | 6002  |                                      It publishes next few records of buses.                                       |
-| app-publisher3 | 6003  |                                        It publishes the rest of the buses.                                         |
-| app-subscriber | 9000  |  Subscribes to the buses information based on the user logged in, creates different threads for different users.   |
-|  app-frontend  | 8080  |                        Is the client application which has the views displayed to the user.                        |
+|     db     | 5003  |                                        Used to inject base data into the DB                                        |
+|  backend   | 5000  |                                The service used by the client to fetch information.                                |
+|  broker  | 7000  | It acts as a broker to save data published by the publisher to the DB and sends it to respective subscriber Queue. |
+| publisher1 | 6001  |                                      It publishes first few records of buses.                                      |
+| publisher2 | 6002  |                                      It publishes next few records of buses.                                       |
+| publisher3 | 6003  |                                        It publishes the rest of the buses.                                         |
+| subscriber1 | 9001  |  Subscribes to the buses information based on the user logged in, creates different threads for different users.   |
+| subscriber2 | 9002  |  Subscribes to the buses information based on the user logged in, creates different threads for different users.   |
+| subscriber3 | 9003  |  Subscribes to the buses information based on the user logged in, creates different threads for different users.   |
+|  frontend  | 8080  |                        Is the client application which has the views displayed to the user.                        |
 
 
 

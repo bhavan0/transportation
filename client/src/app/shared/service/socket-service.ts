@@ -8,12 +8,15 @@ import { Observable } from 'rxjs';
 export class SocketService {
 
     private socket: any
-
     constructor() {
     }
 
     connect() {
-        this.socket = io('http://localhost:9000');
+        // Connect to a random subscriber
+        const rndInt = Math.floor(Math.random() * 3) + 1
+        const baseUrl = `http://localhost:900${rndInt}`
+        console.log('Connected to subscriber ' + rndInt);
+        this.socket = io(baseUrl);
     }
 
     listen(eventName: string): Observable<any> {

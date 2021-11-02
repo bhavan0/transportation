@@ -12,8 +12,9 @@ app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app, async_mode='threading', cors_allowed_origins='*')
 api = Api(app)
 CORS(app)
-host = os.environ["redis-host"]
-Redis_Client = Redis(host, 6379)
+rediHost = os.environ["redis-host"]
+host = os.environ["host"]
+Redis_Client = Redis(rediHost, 6379)
 tasks = {}
 threadIds = {}
 
@@ -57,6 +58,16 @@ def userSubscribedVehicleLocations(userName, namespace):
 
         handlerNew(userName, msg, namespace)
 
+# async def userSubscribedVehicleLocations(userName, namespace):
+#     global threadIds
+#     time.sleep(1)
+#     uri = "ws://localhost:8765"
+#     async with websockets.connect(uri) as websocket:
+#         await websocket.send(userName)
+
+#         data = await websocket.recv()
+#         handlerNew(userName, data, namespace)
+
 
 def handlerNew(userName, data, namespace):
     # Push the fetched data from the moderator to the client through websocket
@@ -67,4 +78,4 @@ def handlerNew(userName, data, namespace):
 
 
 if __name__ == '__main__':
-    socketio.run(app, host='0.0.0.0', port=9000)
+    socketio.run(app, host='0.0.0.0', port=host)

@@ -38,7 +38,7 @@ def publishAllBuses():
         locations = getVehiclesLocation(idsTemp)
         print('publishing')
         requests.post(
-            f'http://app-mediator:7000/publish', json=locations)
+            f'http://broker1:7000/publish', json=locations)
 
 
 if __name__ == '__main__':

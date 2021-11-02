@@ -39,15 +39,16 @@ class Mediator(Resource):
 
             subscribedBuses = user['subscribedBuses']
             allBusIds = subscribedBuses.split(',')
-            if not set(publishedVehicleIds).isdisjoint(allBusIds):
+            subscribedBusesOfUser = list(
+                set(publishedVehicleIds) & set(allBusIds))
+            if len(subscribedBusesOfUser) > 0:
 
                 busResponse = Mediator.getUserSubscribedBusesFromDb(
-                    allBusIds)
+                    subscribedBusesOfUser)
                 publishNameSpace = user['userName'] + '-mod-publised'
 
-
                 # Add the latest user subscriptions to the respective user queue lists
-                Redis_Client.ltrim(publishNameSpace, 99, 0)
+                # Redis_Client.ltrim(publishNameSpace, 99, 0)
                 Redis_Client.rpush(
                     publishNameSpace, json_util.dumps(busResponse))
 
@@ -124,6 +125,29 @@ class Mediator(Resource):
                                             "$set": {"subscribedBuses": latestSubscribedBuses}})
 
         return 'updated', 200
+
+    # async def hello(websocket, path):
+    #     userName = await websocket.recv()
+
+    #     userDb = get_database('user')
+    #     collection_subscriptions = userDb['subscriptions']
+
+    #     user = collection_subscriptions.find_one({"userName": userName})
+
+    #     subscribedBuses = user['subscribedBuses']
+    #     allBusIds = subscribedBuses.split(',')
+
+    #     busResponse = Mediator.getUserSubscribedBusesFromDb(allBusIds)
+
+    #     await websocket.send(json_util.dumps(busResponse))
+
+    # @app.route('/add-new-subscription', methods=['GET'])
+    # def createThreadedSocket():
+
+    #     start_server = websockets.serve(Mediator.hello, "localhost", 8765)
+    #     task = threading.Thread(target=start_server)
+    #     task.daemon = False
+    #     task.start()
 
 
 api.add_resource(Mediator, '/')

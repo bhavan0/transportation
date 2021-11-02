@@ -209,7 +209,7 @@ class User(Resource):
         userRequest = request.get_json()
 
         requests.post(
-            f'http://mediator:7000/add-user-subscription', json=userRequest)
+            f'http://broker1:7000/add-user-subscription', json=userRequest)
 
         return {'sucess': 'added subscription'}, 200
 
@@ -219,7 +219,7 @@ class User(Resource):
         userRequest = request.get_json()
 
         requests.post(
-            f'http://mediator:7000/remove-user-subscription', userRequest)
+            f'http://broker2:7000/remove-user-subscription', userRequest)
 
         return {'sucess': 'removed subscription'}, 200
 
