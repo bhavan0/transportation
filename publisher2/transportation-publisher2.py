@@ -31,7 +31,7 @@ def publishAllBuses():
     final = [allBusesIds[i:i + 3]
              for i in range(0, len(allBusesIds), 3)]
 
-    # Get and publish only the 5-10 buses present in the DB
+    # Get and publish only the 4-6 buses present in the DB
     if len(final) > 1:
         ids = final[1]
         idsTemp = ','.join(ids)

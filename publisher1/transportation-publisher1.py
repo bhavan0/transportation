@@ -13,8 +13,7 @@ vehicleIds = []
 
 
 def publishAllBuses():
-    # Fetch data from the External API and publish it to the mediator/broker
-
+    # Fetch data from the External API and publish it to the broker
     print('start publish')
     userDb = get_database('user')
     collection_subscriptions = userDb['subscriptions']
@@ -31,7 +30,7 @@ def publishAllBuses():
     final = [allBusesIds[i:i + 3]
              for i in range(0, len(allBusesIds), 3)]
 
-    # Get and publish only the first 5 buses present in the DB
+    # Get and publish only the first 3 buses present in the DB
     if len(final) > 0:
         ids = final[0]
         idsTemp = ','.join(ids)

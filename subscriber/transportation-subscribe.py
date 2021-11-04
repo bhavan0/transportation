@@ -7,7 +7,7 @@ import time
 import threading
 import os
 import requests
-import random 
+import random
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
@@ -37,11 +37,15 @@ def get(userName):
 
 @socketio.on('disconnect-client')
 def disconnect(userName):
-    # Clear out the websocket and the thread created once user disconnects from the page
     global tasks
     global threadIds
+
+    # Call a random broker and let it know user logged out, broker removes user from the hash table
     num = random.randint(1, 3)
-    requests.get(f'http://broker{num}:700{num}/remove-user-from-hash?userName={userName}')
+    requests.get(
+        f'http://broker{num}:700{num}/remove-user-from-hash?userName={userName}')
+
+    # Clear out the websocket and the thread created once user disconnects from the page
     task = tasks.pop(userName)
     threadIds.pop(userName)
     task.join()
@@ -49,8 +53,12 @@ def disconnect(userName):
 
 def userSubscribedVehicleLocations(userName, namespace):
     global threadIds
+
+    # Call random broker to let it know user has logged in and to add user to the hash table
     num = random.randint(1, 3)
-    requests.get(f'http://broker{num}:700{num}/add-user-to-hash?userName={userName}')
+    requests.get(
+        f'http://broker{num}:700{num}/add-user-to-hash?userName={userName}')
+
     time.sleep(1)
     modPublishNameSpace = userName + '-mod-publised'
     # Start reading the redis list of the user logged to see if any new data is pushed by the moderator
@@ -66,7 +74,7 @@ def userSubscribedVehicleLocations(userName, namespace):
 
 
 def handlerNew(userName, data, namespace):
-    # Push the fetched data from the moderator to the client through websocket
+    # Push the fetched data from the broker to the client through websocket
     jsonResponse = data.decode('ascii')
 
     name = userName + '-res'
