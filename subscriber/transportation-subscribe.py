@@ -41,7 +41,7 @@ def disconnect(userName):
     global tasks
     global threadIds
     num = random.randint(1, 3)
-    requests.get(f'http://broker{num}:7000/remove-user-from-hash?userName={userName}')
+    requests.get(f'http://broker{num}:700{num}/remove-user-from-hash?userName={userName}')
     task = tasks.pop(userName)
     threadIds.pop(userName)
     task.join()
@@ -50,7 +50,7 @@ def disconnect(userName):
 def userSubscribedVehicleLocations(userName, namespace):
     global threadIds
     num = random.randint(1, 3)
-    requests.get(f'http://broker{num}:7000/add-user-to-hash?userName={userName}')
+    requests.get(f'http://broker{num}:700{num}/add-user-to-hash?userName={userName}')
     time.sleep(1)
     modPublishNameSpace = userName + '-mod-publised'
     # Start reading the redis list of the user logged to see if any new data is pushed by the moderator

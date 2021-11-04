@@ -120,10 +120,12 @@ class Broker(Resource):
         latestSubscribedBuses = [
             x for x in currentSubscribedBuses if x not in unSubscribedBuses]
 
-        collection_subscriptions.update_one({"_id": userData['_id']}, {
-                                            "$set": {"subscribedBuses": latestSubscribedBuses}})
+        new = ','.join(latestSubscribedBuses)
 
-        Broker.updateHashTableOfUserSubscription(userName)
+        collection_subscriptions.update_one({"_id": userData['_id']}, {
+                                            "$set": {"subscribedBuses": new}})
+
+        Broker.updateHashTableOfUserSubscription(userName, new)
 
         return 'updated', 200
 
@@ -159,21 +161,15 @@ class Broker(Resource):
 
         return 'removed', 200
 
-    def updateHashTableOfUserSubscription(userName):
-        userDb = get_database('user')
-        collection_subscriptions = userDb['subscriptions']
-
-        userData = collection_subscriptions.find_one({"userName": userName})
-        subscribedBuses = userData['subscribedBuses']
-
+    def updateHashTableOfUserSubscription(userName, busList):
         publishNameSpace = userName + '-mod-publised'
         Redis_Client.ltrim(publishNameSpace, 999, 0)
 
         Redis_Client.hset(
-            usersLoggedInHashTableName, userName, subscribedBuses)
+            usersLoggedInHashTableName, userName, busList)
 
 
 api.add_resource(Broker, '/')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=7000)
+    app.run(host='0.0.0.0', port=7003)

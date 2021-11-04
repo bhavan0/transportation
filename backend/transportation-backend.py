@@ -10,6 +10,7 @@ from fetch_vehicle_locations import getVehiclesLocation
 from database_connection import get_database
 import requests
 import json
+import random
 
 config = {
     "DEBUG": True,          # some Flask specific configs
@@ -26,8 +27,6 @@ CORS(app, allow_headers=['Content-Type', 'Access-Control-Allow-Origin',
                          'Access-Control-Allow-Headers', 'Access-Control-Allow-Methods'])
 
 # Used for phase 1 display
-
-
 class Buses(Resource):
 
     file_name = "bus.json"
@@ -208,8 +207,9 @@ class User(Resource):
     def addUserSubscriptions():
         userRequest = request.get_json()
 
+        num = random.randint(1, 3)
         requests.post(
-            f'http://broker1:7000/add-user-subscription', json=userRequest)
+            f'http://broker{num}:700{num}/add-user-subscription', json=userRequest)
 
         return {'sucess': 'added subscription'}, 200
 
@@ -218,8 +218,9 @@ class User(Resource):
     def removeUserSubscriptions():
         userRequest = request.get_json()
 
+        num = random.randint(1, 3)
         requests.post(
-            f'http://broker2:7000/remove-user-subscription', userRequest)
+            f'http://broker{num}:700{num}/remove-user-subscription', json=userRequest)
 
         return {'sucess': 'removed subscription'}, 200
 
