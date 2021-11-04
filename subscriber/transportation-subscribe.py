@@ -6,6 +6,8 @@ from redis import Redis
 import time
 import threading
 import os
+import requests
+import random 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
@@ -38,6 +40,8 @@ def disconnect(userName):
     # Clear out the websocket and the thread created once user disconnects from the page
     global tasks
     global threadIds
+    num = random.randint(1, 3)
+    requests.get(f'http://broker{num}:7000/remove-user-from-hash?userName={userName}')
     task = tasks.pop(userName)
     threadIds.pop(userName)
     task.join()
@@ -45,6 +49,8 @@ def disconnect(userName):
 
 def userSubscribedVehicleLocations(userName, namespace):
     global threadIds
+    num = random.randint(1, 3)
+    requests.get(f'http://broker{num}:7000/add-user-to-hash?userName={userName}')
     time.sleep(1)
     modPublishNameSpace = userName + '-mod-publised'
     # Start reading the redis list of the user logged to see if any new data is pushed by the moderator
@@ -57,16 +63,6 @@ def userSubscribedVehicleLocations(userName, namespace):
             continue
 
         handlerNew(userName, msg, namespace)
-
-# async def userSubscribedVehicleLocations(userName, namespace):
-#     global threadIds
-#     time.sleep(1)
-#     uri = "ws://localhost:8765"
-#     async with websockets.connect(uri) as websocket:
-#         await websocket.send(userName)
-
-#         data = await websocket.recv()
-#         handlerNew(userName, data, namespace)
 
 
 def handlerNew(userName, data, namespace):

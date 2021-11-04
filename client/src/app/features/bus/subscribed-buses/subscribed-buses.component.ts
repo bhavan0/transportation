@@ -76,7 +76,7 @@ export class SubscribedBusesComponent implements OnInit, OnDestroy {
       console.log(buses)
 
 
-      buses.forEach((serverBus: any) => {
+      buses?.forEach((serverBus: any) => {
         let busData = this.allBuses.filter(x => +x.vehicleId === +serverBus.vehicleId)?.shift();
 
         if (busData != null || busData != undefined) {

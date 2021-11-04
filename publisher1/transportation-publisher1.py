@@ -28,8 +28,8 @@ def publishAllBuses():
         allBusesIds = list(set().union(
             allBusesIds, temp['subscribedBuses'].split(',')))
 
-    final = [allBusesIds[i:i + 5]
-             for i in range(0, len(allBusesIds), 5)]
+    final = [allBusesIds[i:i + 2]
+             for i in range(0, len(allBusesIds), 2)]
 
     # Get and publish only the first 5 buses present in the DB
     if len(final) > 0:

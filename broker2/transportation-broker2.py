@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_restful import Resource, Api, request
+from flask_restful import Resource, Api, request, reqparse
 from flask_cors import CORS
 from flask_socketio import SocketIO
 from bson import json_util
@@ -16,9 +16,10 @@ CORS(app, allow_headers=['Content-Type', 'Access-Control-Allow-Origin',
 clients = []
 host = os.environ["redis-host"]
 Redis_Client = Redis(host, 6379)
+usersLoggedInHashTableName = 'usersLoggedInHashTableName'
 
 
-class Mediator(Resource):
+class Broker(Resource):
 
     # Called by the publishers to add data to the db and push data to the subscribers
     @app.route('/publish', methods=['POST'])
@@ -33,19 +34,17 @@ class Mediator(Resource):
             collection_vehicleId = vehiclesDb[vehicleId]
             collection_vehicleId.insert_one(vehicle)
 
-        userDb = get_database('user')
-        collection_subscriptions = userDb['subscriptions']
-        for user in collection_subscriptions.find():
-
-            subscribedBuses = user['subscribedBuses']
+        for key, value in Redis_Client.hgetall(usersLoggedInHashTableName).items():
+            userName = key.decode("utf-8")
+            subscribedBuses = value.decode("utf-8")
             allBusIds = subscribedBuses.split(',')
             subscribedBusesOfUser = list(
                 set(publishedVehicleIds) & set(allBusIds))
-            if len(subscribedBusesOfUser) > 0:
 
-                busResponse = Mediator.getUserSubscribedBusesFromDb(
+            if len(subscribedBusesOfUser) > 0:
+                busResponse = Broker.getUserSubscribedBusesFromDb(
                     subscribedBusesOfUser)
-                publishNameSpace = user['userName'] + '-mod-publised'
+                publishNameSpace = userName + '-mod-publised'
 
                 # Add the latest user subscriptions to the respective user queue lists
                 # Redis_Client.ltrim(publishNameSpace, 99, 0)
@@ -124,33 +123,57 @@ class Mediator(Resource):
         collection_subscriptions.update_one({"_id": userData['_id']}, {
                                             "$set": {"subscribedBuses": latestSubscribedBuses}})
 
+        Broker.updateHashTableOfUserSubscription(userName)
+
         return 'updated', 200
 
-    # async def hello(websocket, path):
-    #     userName = await websocket.recv()
+    @app.route('/add-user-to-hash', methods=['GET'])
+    def addUserLoggedIntoHashTable():
+        parser = reqparse.RequestParser()
+        parser.add_argument('userName', required=True)
+        args = parser.parse_args()
 
-    #     userDb = get_database('user')
-    #     collection_subscriptions = userDb['subscriptions']
+        userName = args['userName']
 
-    #     user = collection_subscriptions.find_one({"userName": userName})
+        userDb = get_database('user')
+        collection_subscriptions = userDb['subscriptions']
 
-    #     subscribedBuses = user['subscribedBuses']
-    #     allBusIds = subscribedBuses.split(',')
+        userData = collection_subscriptions.find_one({"userName": userName})
+        subscribedBuses = userData['subscribedBuses']
 
-    #     busResponse = Mediator.getUserSubscribedBusesFromDb(allBusIds)
+        Redis_Client.hset(
+            usersLoggedInHashTableName, userName, subscribedBuses)
 
-    #     await websocket.send(json_util.dumps(busResponse))
+        return 'added', 200
 
-    # @app.route('/add-new-subscription', methods=['GET'])
-    # def createThreadedSocket():
+    @app.route('/remove-user-from-hash', methods=['GET'])
+    def removeUserFromHashTable():
+        parser = reqparse.RequestParser()
+        parser.add_argument('userName', required=True)
+        args = parser.parse_args()
 
-    #     start_server = websockets.serve(Mediator.hello, "localhost", 8765)
-    #     task = threading.Thread(target=start_server)
-    #     task.daemon = False
-    #     task.start()
+        userName = args['userName']
+
+        Redis_Client.hdel(
+            usersLoggedInHashTableName, userName)
+
+        return 'removed', 200
+
+    def updateHashTableOfUserSubscription(userName):
+        userDb = get_database('user')
+        collection_subscriptions = userDb['subscriptions']
+
+        userData = collection_subscriptions.find_one({"userName": userName})
+        subscribedBuses = userData['subscribedBuses']
+
+        publishNameSpace = userName + '-mod-publised'
+        Redis_Client.ltrim(publishNameSpace, 999, 0)
+
+        Redis_Client.hset(
+            usersLoggedInHashTableName, userName, subscribedBuses)
 
 
-api.add_resource(Mediator, '/')
+api.add_resource(Broker, '/')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=7000)
