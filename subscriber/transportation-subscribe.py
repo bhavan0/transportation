@@ -15,7 +15,7 @@ socketio = SocketIO(app, async_mode='threading', cors_allowed_origins='*')
 api = Api(app)
 CORS(app)
 rediHost = os.environ["redis-host"]
-host = os.environ["host"]
+hostPort = os.environ["host-port"]
 Redis_Client = Redis(rediHost, 6379)
 tasks = {}
 threadIds = {}
@@ -74,4 +74,4 @@ def handlerNew(userName, data, namespace):
 
 
 if __name__ == '__main__':
-    socketio.run(app, host='0.0.0.0', port=host)
+    socketio.run(app, host='0.0.0.0', port=hostPort)

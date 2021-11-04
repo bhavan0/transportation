@@ -15,6 +15,7 @@ CORS(app, allow_headers=['Content-Type', 'Access-Control-Allow-Origin',
                          'Access-Control-Allow-Headers', 'Access-Control-Allow-Methods'])
 clients = []
 host = os.environ["redis-host"]
+hostPort = os.environ["host-port"]
 Redis_Client = Redis(host, 6379)
 usersLoggedInHashTableName = 'usersLoggedInHashTableName'
 
@@ -172,4 +173,4 @@ class Broker(Resource):
 api.add_resource(Broker, '/')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=7001)
+    app.run(host='0.0.0.0', port=hostPort)

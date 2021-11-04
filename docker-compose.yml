@@ -37,7 +37,10 @@ services:
         networks:
             - webnet
     broker1:
-        build: ./broker1/
+        build: 
+            context: ./broker/
+            args:
+                PORT: 7001
         image: bhavan/transportation-broker1
         container_name: broker1
         restart: always
@@ -47,10 +50,14 @@ services:
             - redis
         environment:
             - redis-host=redis
+            - host-port=7001
         networks:
             - webnet
     broker2:
-        build: ./broker2/
+        build: 
+            context: ./broker/
+            args:
+                PORT: 7002
         image: bhavan/transportation-broker2
         container_name: broker2
         restart: always
@@ -60,10 +67,14 @@ services:
             - redis
         environment:
             - redis-host=redis
+            - host-port=7002
         networks:
             - webnet
     broker3:
-        build: ./broker3/
+        build: 
+            context: ./broker/
+            args:
+                PORT: 7003
         image: bhavan/transportation-broker3
         container_name: broker3
         restart: always
@@ -73,6 +84,7 @@ services:
             - redis
         environment:
             - redis-host=redis
+            - host-port=7003
         networks:
             - webnet
     publisher1:
@@ -119,7 +131,7 @@ services:
             - redis
         environment:
             - redis-host=redis
-            - host=9001
+            - host-port=9001
         networks:
             - webnet
     subscriber2:
@@ -133,7 +145,7 @@ services:
             - redis
         environment:
             - redis-host=redis
-            - host=9002
+            - host-port=9002
         networks:
             - webnet
     subscriber3:
@@ -147,7 +159,7 @@ services:
             - redis
         environment:
             - redis-host=redis
-            - host=9003
+            - host-port=9003
         networks:
             - webnet
     frontend:

@@ -11,10 +11,12 @@ ADD . /app
 # Install all dependencies: pyhton frameworks added in the requirements file
 RUN pip3 install -r requirements.txt
 
+ARG PORT
+
 # Expose port and run the python api server
-EXPOSE 7002
-CMD [ "python3", "transportation-broker2.py"]
+EXPOSE $PORT
+CMD [ "python3", "transportation-broker.py"]
 
 # Steps to create image and deploy container in docker
 # docker build -t [image-name] .
-# docker run -p 7002:7002 [image-name]
+# docker run -p 7001:7001 [image-name]
