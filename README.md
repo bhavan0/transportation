@@ -30,21 +30,41 @@
 
 <br />
 
-### Sequence Diagram
-  
-![Sequence diagram image](./images-for-readme/sequential-diagram.png)
+### Sequence Diagrams
 
-Sequence Diagram explaination:
-* The client sends the bus ids to which the user subscribes to the backend
-* Backend saves the user subscriptions to the DB
-* Publishers runs every 1 min to fetch the bus info from the External API and sends it to the mediator
-  * First two publishers takes up 3 topics each from the sorted list of the buses subscribed by all users, the last publisher publishes the rest of the buses location 
-* Mediator saves the published data to the Db, and also creats a list for each user which have subscribed to that respective buses
-* Client creates a websocket connection with the subscriber to get the data of the buses
-* Subscriber creates a new thread for every websocket opened by the client (so every user will have a seperate thread running of the subscriber), it then reads the data from the queue which are published by the mediator.
-* Subscriber sends this information to the client to display
+* High Level Sequence Diagram
+  ![Sequence diagram image](./images-for-readme/sequential-diagram.png)
+
+* Sequence Diagram explaination:
+  * The client sends the bus ids (Topic Ids) to which the user subscribes to the backend
+  * Backend saves the user subscriptions to the DB
+  * Publishers runs every 1 min to fetch the bus info from the External API and sends it to the mediator
+    * First two publishers takes up 3 topics each from the sorted list of the buses subscribed by all users, the last publisher publishes the rest of the buses location 
+  * Broker saves the published data to the Db, and also checks the hash table to see if any logged in user requires that information, and adds it to that user queue
+  * Client creates a websocket connection with the subscriber to get the data of the buses
+  * Subscriber creates a new thread for every websocket opened by the client (so every user will have a seperate thread running of the subscriber), it then reads the data from the queue which are published by the broker for that user.
+  * Subscriber sends this information to the client to display
 
 <br />
+
+* User Login In
+  ![User Login Sequence diagram image](./images-for-readme/user-login-sequence-diagram.png)
+
+<br />
+
+* User Subscribe/ UnSubscribe
+  ![User Login Sequence diagram image](./images-for-readme/user-sub-rem-sequence-diagram.png)
+
+<br />
+
+* Client Opening Connection Sequence Diagram
+  ![Client open connection diagram image](./images-for-readme/client-open-connection-sequence-diagram.png)
+
+<br />
+
+* Client Close Connection Sequence Diagram
+  ![Client close connection diagram image](./images-for-readme/client-close-connection-sequence-diagram.png)
+
 <br />
 
 ### Distributed Broker System for Phase 3
@@ -59,7 +79,7 @@ Sequence Diagram explaination:
 * Each broker reads the hash table to see which all users need the topics handled by them, and adds the subscribed topics to the respective user queue
 * The subscriber reads the respective logged in users queue to send data back to client for display
   
-PS: The user once logs out from the page, an event is triggered to clean up the hash table. This helps in reducing the number of publishes needed by the broker even when the user is not logged in.
+NOTE: The user once logs out from the page, an event is triggered to clean up the hash table. This helps in reducing the number of Queues to be added by the broker even when the user is not logged in.
 
 ### Stack used:
 - Frontend: Angular 9
