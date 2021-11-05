@@ -50,8 +50,10 @@ class Broker(Resource):
             # Only if the user has subscribed to any of the buses push it to the user Queue
             # TODO: Use the data present above itself
             if len(subscribedBusesOfUser) > 0:
-                busResponse = Broker.getUserSubscribedBusesFromDb(
-                    subscribedBusesOfUser)
+
+                busResponse = [
+                    x for x in vehicles if x['vehicleId'] in subscribedBusesOfUser]
+
                 publishNameSpace = userName + '-mod-publised'
 
                 # Add the latest user subscriptions to the respective user queue lists
@@ -59,29 +61,6 @@ class Broker(Resource):
                     publishNameSpace, json_util.dumps(busResponse))
 
         return 'published', 200
-
-    # Fetch latest subscribed data from the DB
-    def getUserSubscribedBusesFromDb(busIds):
-        busesResponse = []
-        busesDb = get_database('vehicles')
-        for busId in busIds:
-            busLatestDb = busesDb[busId].find().sort(
-                [('timestamp', -1)]).limit(1)
-            busLatestDb = list(busLatestDb)
-            if busLatestDb:
-                busLatest = list(busLatestDb)[-1]
-            busesResponse.append({
-                "vehicleId": busLatest['vehicleId'],
-                "latitude": busLatest['latitude'],
-                "longitude": busLatest['longitude'],
-                "routeId": busLatest['routeId'],
-                "patternId": busLatest['patternId'],
-                "destination": busLatest['destination'],
-                "distance": busLatest['distance'],
-                "delay": busLatest['delay']
-            })
-
-        return {'buses': json_util.dumps(busesResponse)}
 
     # Adds the subscriptions added by the user to the Db
     @app.route('/add-user-subscription', methods=['POST'])

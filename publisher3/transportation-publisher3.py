@@ -28,6 +28,8 @@ def publishAllBuses():
         allBusesIds = list(set().union(
             allBusesIds, temp['subscribedBuses'].split(',')))
 
+    allBusesIds.sort(key=float)
+    
     final = [allBusesIds[i:i + 3]
              for i in range(0, len(allBusesIds), 3)]
 

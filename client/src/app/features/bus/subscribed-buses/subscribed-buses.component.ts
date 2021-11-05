@@ -71,7 +71,7 @@ export class SubscribedBusesComponent implements OnInit, OnDestroy {
   getBuses() {
     this.socketService.emit('user', this.userName);
     this.subscriptions.push(this.socketService.listen(this.userName + '-res').subscribe(data => {
-      const buses = JSON.parse(JSON.parse(data).buses)
+      const buses = JSON.parse(data);
 
       console.log(buses)
 
