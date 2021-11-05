@@ -70,10 +70,10 @@ def userSubscribedVehicleLocations(userName, namespace):
             time.sleep(5)
             continue
 
-        handlerNew(userName, msg, namespace)
+        sendInfoToClient(userName, msg, namespace)
 
 
-def handlerNew(userName, data, namespace):
+def sendInfoToClient(userName, data, namespace):
     # Push the fetched data from the broker to the client through websocket
     jsonResponse = data.decode('ascii')
 

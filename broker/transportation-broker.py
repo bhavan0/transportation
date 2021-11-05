@@ -48,7 +48,6 @@ class Broker(Resource):
                 set(publishedVehicleIds) & set(allBusIds))
 
             # Only if the user has subscribed to any of the buses push it to the user Queue
-            # TODO: Use the data present above itself
             if len(subscribedBusesOfUser) > 0:
 
                 busResponse = [

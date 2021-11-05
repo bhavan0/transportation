@@ -46,7 +46,7 @@ def publishAllBuses():
 
 if __name__ == '__main__':
     sched = BackgroundScheduler(daemon=True)
-    # Run the publish methos every 1 minute interval
+    # Run the publish method every 1 minute interval
     sched.add_job(publishAllBuses, 'interval', minutes=1)
     sched.start()
     app.run(host='0.0.0.0', port=6001)
