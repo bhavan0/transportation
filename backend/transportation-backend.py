@@ -219,7 +219,7 @@ class User(Resource):
         userRequest = request.get_json()
 
         requests.post(
-            f'http://mediator:7000/remove-user-subscription', userRequest)
+            f'http://mediator:7000/remove-user-subscription', json=userRequest)
 
         return {'sucess': 'removed subscription'}, 200
 

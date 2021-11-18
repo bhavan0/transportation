@@ -119,9 +119,11 @@ class Mediator(Resource):
 
         latestSubscribedBuses = [
             x for x in currentSubscribedBuses if x not in unSubscribedBuses]
+        
+        new = ','.join(latestSubscribedBuses)
 
         collection_subscriptions.update_one({"_id": userData['_id']}, {
-                                            "$set": {"subscribedBuses": latestSubscribedBuses}})
+                                            "$set": {"subscribedBuses": new}})
 
         return 'updated', 200
 
