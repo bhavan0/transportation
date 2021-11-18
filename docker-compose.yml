@@ -15,7 +15,7 @@ services:
             - '27017:27017'
         networks:
             - webnet
-    app-db:
+    db:
         build: ./db/
         image: bhavan/transportation-db
         container_name: database
@@ -25,7 +25,7 @@ services:
             - mongodb
         networks:
             - webnet
-    app-backend:
+    backend:
         build: ./backend/
         image: bhavan/transportation-backend
         container_name: backend
@@ -36,20 +36,58 @@ services:
             - mongodb
         networks:
             - webnet
-    app-mediator:
-        build: ./mediator/
-        image: bhavan/transportation-mediator
-        container_name: mediator
+    broker1:
+        build: 
+            context: ./broker/
+            args:
+                PORT: 7001
+        image: bhavan/transportation-broker1
+        container_name: broker1
         restart: always
         ports:
-            - 7000:7000
+            - 7001:7001
         depends_on:
             - redis
         environment:
             - redis-host=redis
+            - host-port=7001
         networks:
             - webnet
-    app-publisher1:
+    broker2:
+        build: 
+            context: ./broker/
+            args:
+                PORT: 7002
+        image: bhavan/transportation-broker2
+        container_name: broker2
+        restart: always
+        ports:
+            - 7002:7002
+        depends_on:
+            - redis
+        environment:
+            - redis-host=redis
+            - host-port=7002
+        networks:
+            - webnet
+    broker3:
+        build: 
+            context: ./broker/
+            args:
+                PORT: 7003
+        image: bhavan/transportation-broker3
+        container_name: broker3
+        restart: always
+        ports:
+            - 7003:7003
+        depends_on:
+            - redis
+        environment:
+            - redis-host=redis
+            - host-port=7003
+        networks:
+            - webnet
+    publisher1:
         build: ./publisher1/
         image: bhavan/transportation-publisher1
         container_name: publisher1
@@ -60,7 +98,7 @@ services:
             - mongodb
         networks:
             - webnet
-    app-publisher2:
+    publisher2:
         build: ./publisher2/
         image: bhavan/transportation-publisher2
         container_name: publisher2
@@ -71,7 +109,7 @@ services:
             - mongodb
         networks:
             - webnet
-    app-publisher3:
+    publisher3:
         build: ./publisher3/
         image: bhavan/transportation-publisher3
         container_name: publisher3
@@ -82,20 +120,49 @@ services:
             - mongodb
         networks:
             - webnet
-    app-subscriber:
+    subscriber1:
         build: ./subscriber/
-        image: bhavan/transportation-subscriber
-        container_name: subscriber
+        image: bhavan/transportation-subscriber1
+        container_name: subscriber1
         restart: always
         ports:
-            - 9000:9000
+            - 9001:9001
         depends_on:
             - redis
         environment:
             - redis-host=redis
+            - host-port=9001
         networks:
             - webnet
-    app-frontend:
+    subscriber2:
+        build: ./subscriber/
+        image: bhavan/transportation-subscriber2
+        container_name: subscriber2
+        restart: always
+        ports:
+            - 9002:9002
+        depends_on:
+            - redis
+        environment:
+            - redis-host=redis
+            - host-port=9002
+        networks:
+            - webnet
+    subscriber3:
+        build: ./subscriber/
+        image: bhavan/transportation-subscriber3
+        container_name: subscriber3
+        restart: always
+        ports:
+            - 9003:9003
+        depends_on:
+            - redis
+        environment:
+            - redis-host=redis
+            - host-port=9003
+        networks:
+            - webnet
+    frontend:
         build: ./client/
         image: bhavan/transportation-client
         container_name: frontend

@@ -71,12 +71,12 @@ export class SubscribedBusesComponent implements OnInit, OnDestroy {
   getBuses() {
     this.socketService.emit('user', this.userName);
     this.subscriptions.push(this.socketService.listen(this.userName + '-res').subscribe(data => {
-      const buses = JSON.parse(JSON.parse(data).buses)
+      const buses = JSON.parse(data);
 
       console.log(buses)
 
 
-      buses.forEach((serverBus: any) => {
+      buses?.forEach((serverBus: any) => {
         let busData = this.allBuses.filter(x => +x.vehicleId === +serverBus.vehicleId)?.shift();
 
         if (busData != null || busData != undefined) {

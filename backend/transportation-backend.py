@@ -10,6 +10,7 @@ from fetch_vehicle_locations import getVehiclesLocation
 from database_connection import get_database
 import requests
 import json
+import random
 
 config = {
     "DEBUG": True,          # some Flask specific configs
@@ -25,11 +26,9 @@ api = Api(app)
 CORS(app, allow_headers=['Content-Type', 'Access-Control-Allow-Origin',
                          'Access-Control-Allow-Headers', 'Access-Control-Allow-Methods'])
 
-# Used for phase 1 display
-
 
 class Buses(Resource):
-
+    # Used for phase 1 display
     file_name = "bus.json"
 
     def get(self):
@@ -126,6 +125,7 @@ class Stops(Resource):
     # Cache the Stops response after first call, its a huge data to fetch every time
     @cache.cached(timeout=5000, key_prefix='allStops')
     def get(self):
+        # Get all Stops API Endpoint
         stops = getAllStops()
         stops = json.loads(json_util.dumps(stops))
         return {'stops': stops}, 200
@@ -135,6 +135,7 @@ class Routes(Resource):
     # Cache the Routes response after first call, its a huge data to fetch every time
     @cache.cached(timeout=5000, key_prefix='allRoutes')
     def get(self):
+        # Get all Routes API End point
         routes = getAllRoutes()
         routes = json.loads(json_util.dumps(routes))
         return {'routes': routes}, 200
@@ -155,7 +156,7 @@ class Predictions(Resource):
 class Vehicle(Resource):
     # Get the vehicle information based on Id
     def get(self):
-        # Read parameter data
+        # Read query parameter data
         parser = reqparse.RequestParser()
         parser.add_argument('vid', required=True)
         args = parser.parse_args()
@@ -203,28 +204,33 @@ class User(Resource):
 
         return {'sucess': 'added user'}, 200
 
-    # Add User subscriptions to the DB
+    # Add User subscriptions to the DB by calling broker
     @app.route('/user/add-subscription', methods=['POST'])
     def addUserSubscriptions():
         userRequest = request.get_json()
 
+        # Generate random number to call a random broker
+        num = random.randint(1, 3)
         requests.post(
-            f'http://mediator:7000/add-user-subscription', json=userRequest)
+            f'http://broker{num}:700{num}/add-user-subscription', json=userRequest)
 
         return {'sucess': 'added subscription'}, 200
 
-    # Remove user unsubscribed buses from the DB
+    # Remove user unsubscribed buses from the DB by calling broker
     @app.route('/user/remove-subscription', methods=['POST'])
     def removeUserSubscriptions():
         userRequest = request.get_json()
 
+        # Generate random number to call a random broker
+        num = random.randint(1, 3)
         requests.post(
-            f'http://mediator:7000/remove-user-subscription', json=userRequest)
+            f'http://broker{num}:700{num}/remove-user-subscription', json=userRequest)
 
         return {'sucess': 'removed subscription'}, 200
 
 
-api.add_resource(Buses, '/buses')  # add endpoints
+# Register End points
+api.add_resource(Buses, '/buses')
 api.add_resource(Stops, '/stops')
 api.add_resource(Routes, '/routes')
 api.add_resource(Vehicle, '/vehicles')
@@ -232,4 +238,4 @@ api.add_resource(Predictions, '/predictions')
 api.add_resource(User, '/')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)  # run our Flask app
+    app.run(host='0.0.0.0', port=5000)

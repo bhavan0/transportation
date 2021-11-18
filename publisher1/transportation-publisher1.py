@@ -13,8 +13,7 @@ vehicleIds = []
 
 
 def publishAllBuses():
-    # Fetch data from the External API and publish it to the mediator/broker
-
+    # Fetch data from the External API and publish it to the broker
     print('start publish')
     userDb = get_database('user')
     collection_subscriptions = userDb['subscriptions']
@@ -28,22 +27,26 @@ def publishAllBuses():
         allBusesIds = list(set().union(
             allBusesIds, temp['subscribedBuses'].split(',')))
 
-    final = [allBusesIds[i:i + 5]
-             for i in range(0, len(allBusesIds), 5)]
+    allBusesIds.sort(key=float)
+    
+    final = [allBusesIds[i:i + 3]
+             for i in range(0, len(allBusesIds), 3)]
 
-    # Get and publish only the first 5 buses present in the DB
+    # Get and publish only the first 3 buses present in the DB
     if len(final) > 0:
         ids = final[0]
         idsTemp = ','.join(ids)
         locations = getVehiclesLocation(idsTemp)
-        print('publishing')
-        requests.post(
-            f'http://app-mediator:7000/publish', json=locations)
+
+        if len(locations) > 0:
+            print('publishing')
+            requests.post(
+                f'http://broker1:7001/publish', json=locations)
 
 
 if __name__ == '__main__':
     sched = BackgroundScheduler(daemon=True)
-    # Run the publish methos every 1 minute interval
+    # Run the publish method every 1 minute interval
     sched.add_job(publishAllBuses, 'interval', minutes=1)
     sched.start()
-    app.run(host='0.0.0.0', port=6000)
+    app.run(host='0.0.0.0', port=6001)

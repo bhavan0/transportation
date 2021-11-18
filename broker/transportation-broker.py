@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_restful import Resource, Api, request
+from flask_restful import Resource, Api, request, reqparse
 from flask_cors import CORS
 from flask_socketio import SocketIO
 from bson import json_util
@@ -15,10 +15,12 @@ CORS(app, allow_headers=['Content-Type', 'Access-Control-Allow-Origin',
                          'Access-Control-Allow-Headers', 'Access-Control-Allow-Methods'])
 clients = []
 host = os.environ["redis-host"]
+hostPort = os.environ["host-port"]
 Redis_Client = Redis(host, 6379)
+usersLoggedInHashTableName = 'usersLoggedInHashTableName'
 
 
-class Mediator(Resource):
+class Broker(Resource):
 
     # Called by the publishers to add data to the db and push data to the subscribers
     @app.route('/publish', methods=['POST'])
@@ -26,6 +28,8 @@ class Mediator(Resource):
         # Read parameter data
         vehicles = request.get_json()
         publishedVehicleIds = []
+
+        # Add published data to the respective tables in the DB
         for vehicle in vehicles:
             vehiclesDb = get_database('vehicles')
             vehicleId = vehicle['vehicleId']
@@ -33,49 +37,31 @@ class Mediator(Resource):
             collection_vehicleId = vehiclesDb[vehicleId]
             collection_vehicleId.insert_one(vehicle)
 
-        userDb = get_database('user')
-        collection_subscriptions = userDb['subscriptions']
-        for user in collection_subscriptions.find():
+        # Loop through hash table to check all users logged in
+        for key, value in Redis_Client.hgetall(usersLoggedInHashTableName).items():
+            # Hash table saves data in bytecode hence need to decode
+            userName = key.decode("utf-8")
+            subscribedBuses = value.decode("utf-8")
 
-            subscribedBuses = user['subscribedBuses']
             allBusIds = subscribedBuses.split(',')
-            if not set(publishedVehicleIds).isdisjoint(allBusIds):
+            subscribedBusesOfUser = list(
+                set(publishedVehicleIds) & set(allBusIds))
 
-                busResponse = Mediator.getUserSubscribedBusesFromDb(
-                    allBusIds)
-                publishNameSpace = user['userName'] + '-mod-publised'
+            # Only if the user has subscribed to any of the buses push it to the user Queue
+            if len(subscribedBusesOfUser) > 0:
 
+                busResponse = [
+                    x for x in vehicles if x['vehicleId'] in subscribedBusesOfUser]
+
+                publishNameSpace = userName + '-mod-publised'
 
                 # Add the latest user subscriptions to the respective user queue lists
-                Redis_Client.ltrim(publishNameSpace, 99, 0)
                 Redis_Client.rpush(
                     publishNameSpace, json_util.dumps(busResponse))
 
         return 'published', 200
 
-    def getUserSubscribedBusesFromDb(busIds):
-        busesResponse = []
-        busesDb = get_database('vehicles')
-        for busId in busIds:
-            busLatestDb = busesDb[busId].find().sort(
-                [('timestamp', -1)]).limit(1)
-            busLatestDb = list(busLatestDb)
-            if busLatestDb:
-                busLatest = list(busLatestDb)[-1]
-            busesResponse.append({
-                "vehicleId": busLatest['vehicleId'],
-                "latitude": busLatest['latitude'],
-                "longitude": busLatest['longitude'],
-                "routeId": busLatest['routeId'],
-                "patternId": busLatest['patternId'],
-                "destination": busLatest['destination'],
-                "distance": busLatest['distance'],
-                "delay": busLatest['delay']
-            })
-
-        return {'buses': json_util.dumps(busesResponse)}
-
-    # Adds the subscriptions added by the user
+    # Adds the subscriptions added by the user to the Db
     @app.route('/add-user-subscription', methods=['POST'])
     def addUserSubscriptions():
         userRequest = request.get_json()
@@ -102,7 +88,7 @@ class Mediator(Resource):
 
         return 'updated', 200
 
-    # Removes the subscriptions removed by the user
+    # Removes the subscriptions removed by the user from the DB and then from the Hash Table
     @app.route('/remove-user-subscription', methods=['POST'])
     def removeUserSubscriptions():
         userRequest = request.get_json()
@@ -122,13 +108,59 @@ class Mediator(Resource):
         
         new = ','.join(latestSubscribedBuses)
 
+        new = ','.join(latestSubscribedBuses)
+
         collection_subscriptions.update_one({"_id": userData['_id']}, {
                                             "$set": {"subscribedBuses": new}})
 
+        Broker.updateHashTableOfUserSubscription(userName, new)
+
         return 'updated', 200
 
+    # Add logged in user to the Hashtable
+    @app.route('/add-user-to-hash', methods=['GET'])
+    def addUserLoggedIntoHashTable():
+        parser = reqparse.RequestParser()
+        parser.add_argument('userName', required=True)
+        args = parser.parse_args()
 
-api.add_resource(Mediator, '/')
+        userName = args['userName']
+
+        userDb = get_database('user')
+        collection_subscriptions = userDb['subscriptions']
+
+        userData = collection_subscriptions.find_one({"userName": userName})
+        subscribedBuses = userData['subscribedBuses']
+
+        Redis_Client.hset(
+            usersLoggedInHashTableName, userName, subscribedBuses)
+
+        return 'added', 200
+
+    # Remove logged out user from the Hash table
+    @app.route('/remove-user-from-hash', methods=['GET'])
+    def removeUserFromHashTable():
+        parser = reqparse.RequestParser()
+        parser.add_argument('userName', required=True)
+        args = parser.parse_args()
+
+        userName = args['userName']
+
+        Redis_Client.hdel(
+            usersLoggedInHashTableName, userName)
+
+        return 'removed', 200
+
+    # Used to update the user subscribed buses in the hash table
+    def updateHashTableOfUserSubscription(userName, busList):
+        publishNameSpace = userName + '-mod-publised'
+        Redis_Client.ltrim(publishNameSpace, 999, 0)
+
+        Redis_Client.hset(
+            usersLoggedInHashTableName, userName, busList)
+
+
+api.add_resource(Broker, '/')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=7000)
+    app.run(host='0.0.0.0', port=hostPort)
