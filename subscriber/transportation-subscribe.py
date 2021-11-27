@@ -8,6 +8,7 @@ import threading
 import os
 import requests
 import random
+from kafka import KafkaConsumer
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
@@ -65,8 +66,10 @@ def userSubscribedVehicleLocations(userName, namespace):
     while True:
         if threading.get_ident() not in threadIds.values():
             break
-        msg = Redis_Client.rpop(modPublishNameSpace)
-        if msg is None:
+        # msg = Redis_Client.rpop(modPublishNameSpace)
+        consumer = KafkaConsumer(
+            modPublishNameSpace, bootstrap_servers=['localhost:9092'])
+        for msg in consumer:
             time.sleep(5)
             continue
 

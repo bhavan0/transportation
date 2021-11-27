@@ -5,3 +5,4 @@ flask_socketio
 redis
 pymongo
 pymongo[srv]
+kafka-python

@@ -6,6 +6,7 @@ from bson import json_util
 from redis import Redis
 from database_connection import get_database
 import os
+from kafka import KafkaProducer
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
@@ -56,8 +57,11 @@ class Broker(Resource):
                 publishNameSpace = userName + '-mod-publised'
 
                 # Add the latest user subscriptions to the respective user queue lists
-                Redis_Client.rpush(
-                    publishNameSpace, json_util.dumps(busResponse))
+                # Redis_Client.rpush(
+                #     publishNameSpace, json_util.dumps(busResponse))
+                producer = KafkaProducer(
+                    bootstrap_servers=['localhost:9092'], api_version=(0, 11, 5))
+                producer.send(publishNameSpace, json_util.dumps(busResponse))
 
         return 'published', 200
 
@@ -105,7 +109,7 @@ class Broker(Resource):
 
         latestSubscribedBuses = [
             x for x in currentSubscribedBuses if x not in unSubscribedBuses]
-        
+
         new = ','.join(latestSubscribedBuses)
 
         new = ','.join(latestSubscribedBuses)
