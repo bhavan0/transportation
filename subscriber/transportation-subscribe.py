@@ -1,9 +1,8 @@
+from bson import json_util
 from flask import Flask
 from flask_restful import Api, request
 from flask_cors import CORS
 from flask_socketio import SocketIO
-from redis import Redis
-import time
 import threading
 import os
 import requests
@@ -15,9 +14,7 @@ app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app, async_mode='threading', cors_allowed_origins='*')
 api = Api(app)
 CORS(app)
-rediHost = os.environ["redis-host"]
 hostPort = os.environ["host-port"]
-Redis_Client = Redis(rediHost, 6379)
 tasks = {}
 threadIds = {}
 
@@ -60,28 +57,29 @@ def userSubscribedVehicleLocations(userName, namespace):
     requests.get(
         f'http://broker{num}:700{num}/add-user-to-hash?userName={userName}')
 
-    time.sleep(1)
-    modPublishNameSpace = userName + '-mod-publised'
+    modPublishNameSpace = userName.strip() + '-mod-publised'
     # Start reading the redis list of the user logged to see if any new data is pushed by the moderator
-    while True:
+    
+    consumer = KafkaConsumer(
+        modPublishNameSpace,
+        bootstrap_servers=['kafka-1:19092'],
+        auto_offset_reset='latest',
+        enable_auto_commit=True,
+        group_id="abc",
+        value_deserializer=lambda x: json_util.loads(x),
+        api_version=(0, 11, 5))
+    for msg in consumer:
         if threading.get_ident() not in threadIds.values():
             break
-        # msg = Redis_Client.rpop(modPublishNameSpace)
-        consumer = KafkaConsumer(
-            modPublishNameSpace, bootstrap_servers=['localhost:9092'])
-        for msg in consumer:
-            time.sleep(5)
-            continue
-
-        sendInfoToClient(userName, msg, namespace)
+        consumer.commit()
+        sendInfoToClient(userName, json_util.dumps(msg.value), namespace)
 
 
 def sendInfoToClient(userName, data, namespace):
     # Push the fetched data from the broker to the client through websocket
-    jsonResponse = data.decode('ascii')
-
+    # print(data)
     name = userName + '-res'
-    socketio.emit(name, jsonResponse, namespace=namespace)
+    socketio.emit(name, data, namespace=namespace)
 
 
 if __name__ == '__main__':

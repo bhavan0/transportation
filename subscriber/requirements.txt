@@ -2,6 +2,6 @@ flask
 flask_restful
 flask_cors
 flask_socketio
-redis
 requests
 kafka-python
+pymongo

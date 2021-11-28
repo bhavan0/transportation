@@ -54,14 +54,13 @@ class Broker(Resource):
                 busResponse = [
                     x for x in vehicles if x['vehicleId'] in subscribedBusesOfUser]
 
-                publishNameSpace = userName + '-mod-publised'
-
-                # Add the latest user subscriptions to the respective user queue lists
-                # Redis_Client.rpush(
-                #     publishNameSpace, json_util.dumps(busResponse))
-                producer = KafkaProducer(
-                    bootstrap_servers=['localhost:9092'], api_version=(0, 11, 5))
-                producer.send(publishNameSpace, json_util.dumps(busResponse))
+                publishNameSpace = userName.strip() + '-mod-publised'
+                
+                producer = KafkaProducer(bootstrap_servers='kafka-1:19092',
+                                 value_serializer=lambda v: json_util.dumps(v).encode('utf-8'), api_version=(0, 11, 5))
+                producer.send(publishNameSpace,
+                              value=busResponse)
+                producer.flush()
 
         return 'published', 200
 

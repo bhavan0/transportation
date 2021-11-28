@@ -15,8 +15,34 @@ services:
             - '27017:27017'
         networks:
             - webnet
-    kafka:
-        image: 'bitnami/kafka:latest'
+    zookeeper-1:
+        image: confluentinc/cp-zookeeper:3.3.0-1
+        hostname: zookeeper-1
+        ports:
+            - "12181:12181"
+        environment:
+            ZOOKEEPER_SERVER_ID: 1
+            ZOOKEEPER_CLIENT_PORT: 12181
+            ZOOKEEPER_TICK_TIME: 2000
+            ZOOKEEPER_INIT_LIMIT: 5
+            ZOOKEEPER_SYNC_LIMIT: 2
+            ZOOKEEPER_SERVERS: zookeeper-1:12888:13888
+        networks:
+            - webnet
+    kafka-1:
+        image: confluentinc/cp-kafka:4.1.2-2
+        hostname: kafka-1
+        ports:
+            - "19092:19092"
+        depends_on:
+            - zookeeper-1
+        environment:
+            KAFKA_BROKER_ID: 1
+            KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:12181
+            KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-1:19092
+            KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+            KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+            KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
         networks:
             - webnet
     db:
@@ -52,7 +78,6 @@ services:
             - 7001:7001
         depends_on:
             - redis
-            - kafka
         environment:
             - redis-host=redis
             - host-port=7001
@@ -70,7 +95,6 @@ services:
             - 7002:7002
         depends_on:
             - redis
-            - kafka
         environment:
             - redis-host=redis
             - host-port=7002
@@ -88,7 +112,6 @@ services:
             - 7003:7003
         depends_on:
             - redis
-            - kafka
         environment:
             - redis-host=redis
             - host-port=7003
@@ -136,9 +159,7 @@ services:
             - 9001:9001
         depends_on:
             - redis
-            - kafka
         environment:
-            - redis-host=redis
             - host-port=9001
         networks:
             - webnet
@@ -151,9 +172,7 @@ services:
             - 9002:9002
         depends_on:
             - redis
-            - kafka
         environment:
-            - redis-host=redis
             - host-port=9002
         networks:
             - webnet
@@ -166,9 +185,7 @@ services:
             - 9003:9003
         depends_on:
             - redis
-            - kafka
         environment:
-            - redis-host=redis
             - host-port=9003
         networks:
             - webnet
