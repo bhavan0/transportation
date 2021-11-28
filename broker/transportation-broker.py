@@ -7,6 +7,7 @@ from redis import Redis
 from database_connection import get_database
 import os
 from kafka import KafkaProducer
+import random
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
@@ -17,6 +18,7 @@ CORS(app, allow_headers=['Content-Type', 'Access-Control-Allow-Origin',
 clients = []
 host = os.environ["redis-host"]
 hostPort = os.environ["host-port"]
+kafkaHost = os.environ["kafka-host"]
 Redis_Client = Redis(host, 6379)
 usersLoggedInHashTableName = 'usersLoggedInHashTableName'
 
@@ -55,9 +57,9 @@ class Broker(Resource):
                     x for x in vehicles if x['vehicleId'] in subscribedBusesOfUser]
 
                 publishNameSpace = userName.strip() + '-mod-publised'
-                
-                producer = KafkaProducer(bootstrap_servers='kafka-1:19092',
-                                 value_serializer=lambda v: json_util.dumps(v).encode('utf-8'), api_version=(0, 11, 5))
+
+                producer = KafkaProducer(bootstrap_servers=kafkaHost,
+                                         value_serializer=lambda v: json_util.dumps(v).encode('utf-8'), api_version=(0, 11, 5))
                 producer.send(publishNameSpace,
                               value=busResponse)
                 producer.flush()

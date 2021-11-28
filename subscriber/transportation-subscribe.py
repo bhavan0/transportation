@@ -59,10 +59,14 @@ def userSubscribedVehicleLocations(userName, namespace):
 
     modPublishNameSpace = userName.strip() + '-mod-publised'
     # Start reading the redis list of the user logged to see if any new data is pushed by the moderator
-    
+
+    kafkaBroker1 = 'kafka-1:19092'
+    kafkaBroker2 = 'kafka-2:19093'
+    kafkaBroker3 = 'kafka-3:19094'
+
     consumer = KafkaConsumer(
         modPublishNameSpace,
-        bootstrap_servers=['kafka-1:19092'],
+        bootstrap_servers=[kafkaBroker1, kafkaBroker2, kafkaBroker3],
         auto_offset_reset='latest',
         enable_auto_commit=True,
         group_id="abc",

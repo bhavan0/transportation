@@ -26,7 +26,35 @@ services:
             ZOOKEEPER_TICK_TIME: 2000
             ZOOKEEPER_INIT_LIMIT: 5
             ZOOKEEPER_SYNC_LIMIT: 2
-            ZOOKEEPER_SERVERS: zookeeper-1:12888:13888
+            ZOOKEEPER_SERVERS: zookeeper-1:12888:13888;zookeeper-2:12888:13888;zookeeper-3:12888:13888
+        networks:
+            - webnet
+    zookeeper-2:
+        image: confluentinc/cp-zookeeper:3.3.0-1
+        hostname: zookeeper-2
+        ports:
+            - "12182:12182"
+        environment:
+            ZOOKEEPER_SERVER_ID: 2
+            ZOOKEEPER_CLIENT_PORT: 12182
+            ZOOKEEPER_TICK_TIME: 2000
+            ZOOKEEPER_INIT_LIMIT: 5
+            ZOOKEEPER_SYNC_LIMIT: 2
+            ZOOKEEPER_SERVERS: zookeeper-1:12888:13888;zookeeper-2:12888:13888;zookeeper-3:12888:13888
+        networks:
+            - webnet
+    zookeeper-3:
+        image: confluentinc/cp-zookeeper:3.3.0-1
+        hostname: zookeeper-3
+        ports:
+            - "12183:12183"
+        environment:
+            ZOOKEEPER_SERVER_ID: 3
+            ZOOKEEPER_CLIENT_PORT: 12182
+            ZOOKEEPER_TICK_TIME: 2000
+            ZOOKEEPER_INIT_LIMIT: 5
+            ZOOKEEPER_SYNC_LIMIT: 2
+            ZOOKEEPER_SERVERS: zookeeper-1:12888:13888;zookeeper-2:12888:13888;zookeeper-3:12888:13888
         networks:
             - webnet
     kafka-1:
@@ -36,13 +64,51 @@ services:
             - "19092:19092"
         depends_on:
             - zookeeper-1
+            - zookeeper-2
+            - zookeeper-3
         environment:
             KAFKA_BROKER_ID: 1
-            KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:12181
+            KAFKA_ZOOKEEPER_CONNECT: "zookeeper-1:12181,zookeeper-2:12182,zookeeper-3:12183"
             KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-1:19092
-            KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+            # KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
             KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
-            KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+            KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 2
+        networks:
+            - webnet
+    kafka-2:
+        image: confluentinc/cp-kafka:4.1.2-2
+        hostname: kafka-2
+        ports:
+            - "19093:19093"
+        depends_on:
+            - zookeeper-1
+            - zookeeper-2
+            - zookeeper-3
+        environment:
+            KAFKA_BROKER_ID: 2
+            KAFKA_ZOOKEEPER_CONNECT: "zookeeper-1:12181,zookeeper-2:12182,zookeeper-3:12183"
+            KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-2:19093
+            # KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+            KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+            KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 2
+        networks:
+            - webnet
+    kafka-3:
+        image: confluentinc/cp-kafka:4.1.2-2
+        hostname: kafka-3
+        ports:
+            - "19094:19094"
+        depends_on:
+            - zookeeper-1
+            - zookeeper-2
+            - zookeeper-3
+        environment:
+            KAFKA_BROKER_ID: 3
+            KAFKA_ZOOKEEPER_CONNECT: "zookeeper-1:12181,zookeeper-2:12182,zookeeper-3:12183"
+            KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-3:19094
+            # KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+            KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+            KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 2
         networks:
             - webnet
     db:
@@ -81,6 +147,7 @@ services:
         environment:
             - redis-host=redis
             - host-port=7001
+            - kafka-host=kafka-1:19092
         networks:
             - webnet
     broker2:
@@ -98,6 +165,7 @@ services:
         environment:
             - redis-host=redis
             - host-port=7002
+            - kafka-host=kafka-2:19093
         networks:
             - webnet
     broker3:
@@ -115,6 +183,7 @@ services:
         environment:
             - redis-host=redis
             - host-port=7003
+            - kafka-host=kafka-3:19094
         networks:
             - webnet
     publisher1:
