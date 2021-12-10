@@ -5,6 +5,7 @@ from flask_cors import CORS
 from flask_socketio import SocketIO
 import threading
 import os
+from kafka.structs import TopicPartition
 import requests
 import random
 from kafka import KafkaConsumer
@@ -69,13 +70,30 @@ def userSubscribedVehicleLocations(userName, namespace):
         bootstrap_servers=[kafkaBroker1, kafkaBroker2, kafkaBroker3],
         auto_offset_reset='latest',
         enable_auto_commit=True,
-        group_id="abc",
+        group_id="random-group",
         value_deserializer=lambda x: json_util.loads(x),
         api_version=(0, 11, 5))
+    
+    # consumer = KafkaConsumer(
+    #     bootstrap_servers=BOOTSTRAP_SERVERS,
+    #     group_id=GROUP,
+    #     enable_auto_commit=False
+    # )
+    
+    # for p in consumer.partitions_for_topic(TOPIC):
+    #     tp = TopicPartition(TOPIC, p)
+    #     consumer.assign([tp])
+    #     committed = consumer.committed(tp)
+    #     consumer.seek_to_end(tp)
+    #     last_offset = consumer.position(tp)
+    
+    # num = random.randint(1, 2)
+    # consumer.assign([TopicPartition(modPublishNameSpace, num)])
     for msg in consumer:
         if threading.get_ident() not in threadIds.values():
             break
         consumer.commit()
+        print(msg.value)
         sendInfoToClient(userName, json_util.dumps(msg.value), namespace)
 
 

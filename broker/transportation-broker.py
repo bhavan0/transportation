@@ -6,7 +6,8 @@ from bson import json_util
 from redis import Redis
 from database_connection import get_database
 import os
-from kafka import KafkaProducer
+from kafka import KafkaProducer, KafkaAdminClient
+from kafka.admin import NewTopic, NewPartitions
 import random
 
 app = Flask(__name__)
@@ -21,7 +22,8 @@ hostPort = os.environ["host-port"]
 kafkaHost = os.environ["kafka-host"]
 Redis_Client = Redis(host, 6379)
 usersLoggedInHashTableName = 'usersLoggedInHashTableName'
-
+kafkaPartitionTable = 'kafkaPartitionTable'
+nameList = []
 
 class Broker(Resource):
 
@@ -57,14 +59,49 @@ class Broker(Resource):
                     x for x in vehicles if x['vehicleId'] in subscribedBusesOfUser]
 
                 publishNameSpace = userName.strip() + '-mod-publised'
+                
+                Broker.adminClientSetUp(publishNameSpace)
 
                 producer = KafkaProducer(bootstrap_servers=kafkaHost,
                                          value_serializer=lambda v: json_util.dumps(v).encode('utf-8'), api_version=(0, 11, 5))
+
+                
+
+                # Publish to a partition
+                # TODO: publish without partition number and check
+                num = random.randint(0, 2)
                 producer.send(publishNameSpace,
-                              value=busResponse)
+                              value=busResponse, partition=num)
+                
+                # self.producer.send(topic_name, value=data,partition=0)
+                
                 producer.flush()
 
         return 'published', 200
+
+    def adminClientSetUp(topic):
+        # if topic in nameList:
+        #     return
+        if Redis_Client.hexists(kafkaPartitionTable, topic):
+            return
+
+        Redis_Client.hset(
+            kafkaPartitionTable, topic, 'True')
+        # nameList.append(topic)
+        # Create Partitions
+        # admin = KafkaAdminClient(
+        #     bootstrap_servers=kafkaHost, api_version=(0, 11, 5))
+        
+        # topicNew = NewTopic(name=topic, num_partitions=3, replication_factor=1)
+        # admin.create_topics([topicNew])
+        
+        admin_client = KafkaAdminClient(bootstrap_servers=kafkaHost, api_version=(0, 11, 5))
+        topic_partitions = {}
+        topic_partitions[topic] = NewPartitions(total_count=3)
+        admin_client.create_partitions(topic_partitions)
+        # topicPartition = {}
+        # topicPartition[topic] = NewPartitions(total_count=3)
+        # admin.create_partitions(topicPartition)
 
     # Adds the subscriptions added by the user to the Db
     @app.route('/add-user-subscription', methods=['POST'])
@@ -168,4 +205,5 @@ class Broker(Resource):
 api.add_resource(Broker, '/')
 
 if __name__ == '__main__':
+    # Broker.adminClientSetUp('bhavan-mod-publised')
     app.run(host='0.0.0.0', port=hostPort)
