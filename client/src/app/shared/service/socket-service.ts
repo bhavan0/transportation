@@ -13,7 +13,7 @@ export class SocketService {
 
     connect() {
         // Connect to a random subscriber
-        const rndInt = Math.floor(Math.random() * 3) + 1
+        const rndInt = Math.floor(Math.random() * 10) + 1
         const baseUrl = `http://localhost:900${rndInt}`
         console.log('Connected to subscriber ' + rndInt);
         this.socket = io(baseUrl);

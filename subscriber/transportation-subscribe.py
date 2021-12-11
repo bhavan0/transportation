@@ -5,7 +5,6 @@ from flask_cors import CORS
 from flask_socketio import SocketIO
 import threading
 import os
-from kafka.structs import TopicPartition
 import requests
 import random
 from kafka import KafkaConsumer
@@ -59,7 +58,6 @@ def userSubscribedVehicleLocations(userName, namespace):
         f'http://broker{num}:700{num}/add-user-to-hash?userName={userName}')
 
     modPublishNameSpace = userName.strip() + '-mod-publised'
-    # Start reading the redis list of the user logged to see if any new data is pushed by the moderator
 
     kafkaBroker1 = 'kafka-1:19092'
     kafkaBroker2 = 'kafka-2:19093'
@@ -74,26 +72,11 @@ def userSubscribedVehicleLocations(userName, namespace):
         value_deserializer=lambda x: json_util.loads(x),
         api_version=(0, 11, 5))
     
-    # consumer = KafkaConsumer(
-    #     bootstrap_servers=BOOTSTRAP_SERVERS,
-    #     group_id=GROUP,
-    #     enable_auto_commit=False
-    # )
-    
-    # for p in consumer.partitions_for_topic(TOPIC):
-    #     tp = TopicPartition(TOPIC, p)
-    #     consumer.assign([tp])
-    #     committed = consumer.committed(tp)
-    #     consumer.seek_to_end(tp)
-    #     last_offset = consumer.position(tp)
-    
-    # num = random.randint(1, 2)
-    # consumer.assign([TopicPartition(modPublishNameSpace, num)])
+    # Read data from kafka topic and send to client
     for msg in consumer:
         if threading.get_ident() not in threadIds.values():
             break
         consumer.commit()
-        print(msg.value)
         sendInfoToClient(userName, json_util.dumps(msg.value), namespace)
 
 

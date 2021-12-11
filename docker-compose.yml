@@ -70,7 +70,6 @@ services:
             KAFKA_BROKER_ID: 1
             KAFKA_ZOOKEEPER_CONNECT: "zookeeper-1:12181,zookeeper-2:12182,zookeeper-3:12183"
             KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-1:19092
-            # KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
             KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
             KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 2
         networks:
@@ -88,7 +87,6 @@ services:
             KAFKA_BROKER_ID: 2
             KAFKA_ZOOKEEPER_CONNECT: "zookeeper-1:12181,zookeeper-2:12182,zookeeper-3:12183"
             KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-2:19093
-            # KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
             KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
             KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 2
         networks:
@@ -106,7 +104,6 @@ services:
             KAFKA_BROKER_ID: 3
             KAFKA_ZOOKEEPER_CONNECT: "zookeeper-1:12181,zookeeper-2:12182,zookeeper-3:12183"
             KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-3:19094
-            # KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
             KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
             KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 2
         networks:
@@ -258,97 +255,97 @@ services:
             - host-port=9003
         networks:
             - webnet
-    # subscriber4:
-    #     build: ./subscriber/
-    #     image: bhavan/transportation-subscriber4
-    #     container_name: subscriber4
-    #     restart: always
-    #     ports:
-    #         - 9004:9004
-    #     depends_on:
-    #         - redis
-    #     environment:
-    #         - host-port=9004
-    #     networks:
-    #         - webnet
-    # subscriber5:
-    #     build: ./subscriber/
-    #     image: bhavan/transportation-subscriber5
-    #     container_name: subscriber5
-    #     restart: always
-    #     ports:
-    #         - 9005:9005
-    #     depends_on:
-    #         - redis
-    #     environment:
-    #         - host-port=9005
-    #     networks:
-    #         - webnet
-    # subscriber6:
-    #     build: ./subscriber/
-    #     image: bhavan/transportation-subscriber6
-    #     container_name: subscriber6
-    #     restart: always
-    #     ports:
-    #         - 9006:9006
-    #     depends_on:
-    #         - redis
-    #     environment:
-    #         - host-port=9006
-    #     networks:
-    #         - webnet
-    # subscriber7:
-    #     build: ./subscriber/
-    #     image: bhavan/transportation-subscriber7
-    #     container_name: subscriber7
-    #     restart: always
-    #     ports:
-    #         - 9007:9007
-    #     depends_on:
-    #         - redis
-    #     environment:
-    #         - host-port=9007
-    #     networks:
-    #         - webnet
-    # subscriber8:
-    #     build: ./subscriber/
-    #     image: bhavan/transportation-subscriber8
-    #     container_name: subscriber8
-    #     restart: always
-    #     ports:
-    #         - 9008:9008
-    #     depends_on:
-    #         - redis
-    #     environment:
-    #         - host-port=9008
-    #     networks:
-    #         - webnet
-    # subscriber9:
-    #     build: ./subscriber/
-    #     image: bhavan/transportation-subscriber9
-    #     container_name: subscriber9
-    #     restart: always
-    #     ports:
-    #         - 9009:9009
-    #     depends_on:
-    #         - redis
-    #     environment:
-    #         - host-port=9009
-    #     networks:
-    #         - webnet
-    # subscriber10:
-    #     build: ./subscriber/
-    #     image: bhavan/transportation-subscriber10
-    #     container_name: subscriber10
-    #     restart: always
-    #     ports:
-    #         - 9010:9010
-    #     depends_on:
-    #         - redis
-    #     environment:
-    #         - host-port=9010
-    #     networks:
-    #         - webnet
+    subscriber4:
+        build: ./subscriber/
+        image: bhavan/transportation-subscriber4
+        container_name: subscriber4
+        restart: always
+        ports:
+            - 9004:9004
+        depends_on:
+            - redis
+        environment:
+            - host-port=9004
+        networks:
+            - webnet
+    subscriber5:
+        build: ./subscriber/
+        image: bhavan/transportation-subscriber5
+        container_name: subscriber5
+        restart: always
+        ports:
+            - 9005:9005
+        depends_on:
+            - redis
+        environment:
+            - host-port=9005
+        networks:
+            - webnet
+    subscriber6:
+        build: ./subscriber/
+        image: bhavan/transportation-subscriber6
+        container_name: subscriber6
+        restart: always
+        ports:
+            - 9006:9006
+        depends_on:
+            - redis
+        environment:
+            - host-port=9006
+        networks:
+            - webnet
+    subscriber7:
+        build: ./subscriber/
+        image: bhavan/transportation-subscriber7
+        container_name: subscriber7
+        restart: always
+        ports:
+            - 9007:9007
+        depends_on:
+            - redis
+        environment:
+            - host-port=9007
+        networks:
+            - webnet
+    subscriber8:
+        build: ./subscriber/
+        image: bhavan/transportation-subscriber8
+        container_name: subscriber8
+        restart: always
+        ports:
+            - 9008:9008
+        depends_on:
+            - redis
+        environment:
+            - host-port=9008
+        networks:
+            - webnet
+    subscriber9:
+        build: ./subscriber/
+        image: bhavan/transportation-subscriber9
+        container_name: subscriber9
+        restart: always
+        ports:
+            - 9009:9009
+        depends_on:
+            - redis
+        environment:
+            - host-port=9009
+        networks:
+            - webnet
+    subscriber10:
+        build: ./subscriber/
+        image: bhavan/transportation-subscriber10
+        container_name: subscriber10
+        restart: always
+        ports:
+            - 9010:9010
+        depends_on:
+            - redis
+        environment:
+            - host-port=9010
+        networks:
+            - webnet
     frontend:
         build: ./client/
         image: bhavan/transportation-client
