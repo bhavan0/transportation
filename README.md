@@ -1,12 +1,3 @@
-# CSE-586 Distributed Systems Project
-
-## Team no 4: 
-### Bhavan Anand - 50418487 - banand@buffalo.edu
-### Rahul Ramesh - 50375790 - rramesh3@buffalo.edu
-
-<br />
-
-
 ## Transportation Scheduling Updates(Bus Schedule Updates)
 
 ### Zip file contains the following files
@@ -177,29 +168,6 @@ The following commands are run from the docker-compose file for different projec
 Phase 2:
 PS: First 5 mins of recording includes the explanation of project structure, architecture diagram, sequential diagram and running the application.
         Skip to 5:00 min to start with the UI demo
-
-<br />
-
-## Contributions:
-
-* Bhavan: 
-
-  * Client
-  * Subscriber
-  * Broker
-  * Design
-  * Docker
-  * Mongo
-  * Pair Programming
-  
-<br />
-
-* Rahul:
-
-  * Publisher
-  * Backend 
-  * DB
-  * Pair Programming
 
 <br />
 
